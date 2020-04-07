@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class GameWindow extends JFrame {
     public GameWindow(){
-        setTitle("pd");
+        setTitle("Duckido");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setContentPane(new GamePanel(800,600));
         pack();

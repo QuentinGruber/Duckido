@@ -1,5 +1,4 @@
 package com.quentin.duck;
-import com.quentin.duck.entity.Duck;
 import com.quentin.duck.graphics.Draw;
 
 import javax.swing.*;
@@ -15,41 +14,28 @@ public class GamePanel extends JPanel implements ActionListener {
     public static int x = 0;
     public static int width;
     public static int height;
-    private Timer timer;
-    public int NumberOfDucks = 0;
-    public Duck[] DuckArray = new Duck[100000];
-
-
-    private Thread thread;
+    public static Game Game = new Game();
 
     public GamePanel(int width , int height) {
 
         setPreferredSize(new Dimension(width, height));
         setFocusable(true);
         requestFocus();
-        timer = new Timer(100, this);
+        Timer timer = new Timer(1, this);
         timer.start();
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         var draw = new Draw();
         draw.background(g,this);
-        for(int i = 1;i <= NumberOfDucks;i++ ){
-            draw.duck(g,this,DuckArray[i].PosX,DuckArray[i].PosY);
+        for(int i = 1;i <= Game.NumberOfDucks;i++ ){ // draw all ducks
+            draw.duck(g,this,Game.DuckArray[i].PosX,Game.DuckArray[i].PosY);
         }
 
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        int nombreAleatoire = (int) (Math.random() * ((1000) + 1));
-        // TODO: make game loop
-        if(nombreAleatoire<1000){
-            System.out.println("nouvo canard");
-            var NewDuck = new Duck();
-            NumberOfDucks++;
-            DuckArray[NumberOfDucks] = NewDuck;
-        }
-       // System.out.println(DuckArray[3]);
+        Game.MainLoop();
         repaint();
     }
 

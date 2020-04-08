@@ -5,11 +5,14 @@ public class Duck {
     public int PosY ;
     private int MoveLength;
     private float Weight;
+    private int State; // (0: baby , 1: child etc..)
+    private boolean isLeader;
 
     public Duck(){ // Constructor
         PosX = (int) (Math.random() * ((600) + 1));
         PosY = (int) (Math.random() * ((800) + 1));
         MoveLength = 5;
+        isLeader = false;
     }
 
     public void move(){
@@ -26,6 +29,10 @@ public class Duck {
     }
 
     public void FollowLeader(){
+        //TODO;
+    }
+
+    public void Whistling(){
         //TODO;
     }
 

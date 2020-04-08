@@ -5,8 +5,10 @@ import com.quentin.duck.entity.Duck;
 public class Game {
     public int NumberOfDucks = 0;
     public Duck[] DuckArray = new Duck[100000];
-    private int DuckBornChance = 1000; // DuckBornChance/1000
-
+    private int DuckBornChance = 10; // DuckBornChance/1000
+    public Game(){
+        AddDuck();
+    }
 
     public void MainLoop() {
         DuckBornSystem();

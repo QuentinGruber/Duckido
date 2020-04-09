@@ -4,21 +4,23 @@ import com.quentin.duck.entity.Duck;
 import com.quentin.duck.entity.Rocks;
 import com.quentin.duck.entity.WaterLily;
 
+import java.util.ArrayList;
+
 public class Game {
     // Duck stuff
     public int NumberOfDucks; // number of ducks currently on the simulation
     private final int START_NUMBEROFDUCKS = 2;
-    public Duck[] DuckArray = new Duck[100000];
+    ArrayList<Duck> DuckArray = new ArrayList<>();
 
     // Lily stuff
     public int NumberOfLily; // number of lily currently on the simulation
     private final int START_NUMBEROFLILY = 5;
-    public WaterLily[] LilyArray = new WaterLily[100000];
+    ArrayList<WaterLily> LilyArray = new ArrayList<>();
 
     // Rock stuff
     public int NumberOfRocks; // number of rocks currently on the simulation
     private final int START_NUMBEROFROCKS = 3;
-    public Rocks[] RocksArray = new Rocks[START_NUMBEROFROCKS+1];
+    ArrayList<Rocks> RocksArray = new ArrayList<>();
 
     private int LilySpawnChance = 10; // LilySpawnChance/1000
     private int DuckBornChance = 50; // DuckBornChance/1000
@@ -45,8 +47,8 @@ public class Game {
     }
 
     public void DuckMoveSystem() {
-        for(int i = 1;i <= NumberOfDucks;i++ ){ // draw all ducks
-        DuckArray[i].move();
+        for(int i = 0;i < NumberOfDucks;i++ ){ // draw all ducks
+            DuckArray.get(i).move();
         }
     }
 
@@ -65,29 +67,26 @@ public class Game {
     }
 
     private void AddDuck(int nb){
-        for (int i = 0;i<nb ;i++) {
+        for (int i = 0;i<=nb ;i++) {
             System.out.println("nouvo canard");
-            var NewDuck = new Duck();
             NumberOfDucks++;
-            DuckArray[NumberOfDucks] = NewDuck;
+            DuckArray.add(new Duck());
         }
     }
 
     private void AddLily(int nb){
         for (int i = 0;i<nb ;i++) {
             System.out.println("nouvo lily");
-            var NewLily = new WaterLily();
             NumberOfLily++;
-            LilyArray[NumberOfLily] = NewLily;
+            LilyArray.add(new WaterLily());
         }
     }
 
     private void AddRocks(int nb){
         for (int i = 0;i<nb ;i++) {
             System.out.println("nouvo cailloux");
-            var NewRock = new Rocks();
             NumberOfRocks++;
-            RocksArray[NumberOfRocks] = NewRock;
+            RocksArray.add(new Rocks());
         }
     }
 

@@ -30,6 +30,10 @@ public class GamePanel extends JPanel implements ActionListener {
 
         draw.background(g,this);
 
+        for(int i = 1;i <= Game.NumberOfRocks;i++ ){ // draw all rocks
+            draw.rock(g,this,Game.RocksArray[i].PosX,Game.RocksArray[i].PosY);
+        }
+
         for(int i = 1;i <= Game.NumberOfDucks;i++ ){ // draw all ducks
             draw.duck(g,this,Game.DuckArray[i].PosX,Game.DuckArray[i].PosY);
         }

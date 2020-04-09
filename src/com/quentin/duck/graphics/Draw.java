@@ -14,8 +14,6 @@ public class Draw {
         try {
             Image bg = ImageIO.read(new File("assets/bg.png"));
             g.drawImage(bg, 0, 0, GamePanel);
-            //Pour une image de fond
-            //g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -25,8 +23,6 @@ public class Draw {
         try {
             Image duck = ImageIO.read(new File("assets/duck.png"));
             g.drawImage(duck, x, y, GamePanel);
-            //Pour une image de fond
-            //g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,8 +31,15 @@ public class Draw {
         try {
             Image waterlily = ImageIO.read(new File("assets/waterlily.png"));
             g.drawImage(waterlily, x, y, GamePanel);
-            //Pour une image de fond
-            //g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void rock(Graphics g, JPanel GamePanel,int x,int y){
+        try {
+            Image rock = ImageIO.read(new File("assets/rock.png"));
+            g.drawImage(rock, x, y, GamePanel);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,6 +1,7 @@
 package com.quentin.duck;
 import com.quentin.duck.graphics.Draw;
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,12 +17,19 @@ public class GamePanel extends JPanel implements ActionListener {
     public static int height;
     public static Game Game = new Game();
 
-    public GamePanel(int width , int height) {
+    // FPS DEBUG
+    private int MaxFPS;
+    private long StartTime;
+    private long numberOfCall;
 
+    public GamePanel(int width , int height) {
+        StartTime = System.currentTimeMillis() / 1000;
+        numberOfCall = 0;
         setPreferredSize(new Dimension(width, height));
         setFocusable(true);
         requestFocus();
-        Timer timer = new Timer(1, this);
+        MaxFPS = 30;
+        Timer timer = new Timer(1000/MaxFPS, this);
         timer.start();
     }
     public void paintComponent(Graphics g){
@@ -45,6 +53,13 @@ public class GamePanel extends JPanel implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+
+
+        long TimePass = (System.currentTimeMillis() / 1000) - StartTime;
+        numberOfCall++;
+        if(TimePass>0) {
+            System.out.println("FPS:"+numberOfCall / (TimePass));
+        }
         Game.MainLoop();
         repaint();
     }

@@ -8,19 +8,22 @@ import java.util.ArrayList;
 
 public class Game {
     // Duck stuff
-    public int NumberOfDucks; // number of ducks currently on the simulation
+    public static int NumberOfDucks; // number of ducks currently on the simulation
     private final int START_NUMBEROFDUCKS = 2;
-    ArrayList<Duck> DuckArray = new ArrayList<>();
+    private final int MAX_NUMBEROFDUCKS = 10;
+    public static ArrayList<Duck> DuckArray = new ArrayList<>();
 
     // Lily stuff
-    public int NumberOfLily; // number of lily currently on the simulation
+    public static int NumberOfLily; // number of lily currently on the simulation
     private final int START_NUMBEROFLILY = 5;
-    ArrayList<WaterLily> LilyArray = new ArrayList<>();
+    private final int MAX_NUMBEROFLILY = 10;
+
+    public static ArrayList<WaterLily> LilyArray = new ArrayList<>();
 
     // Rock stuff
     public int NumberOfRocks; // number of rocks currently on the simulation
     private final int START_NUMBEROFROCKS = 3;
-    ArrayList<Rocks> RocksArray = new ArrayList<>();
+    public static ArrayList<Rocks> RocksArray = new ArrayList<>();
 
     private int LilySpawnChance = 10; // LilySpawnChance/1000
     private int DuckBornChance = 50; // DuckBornChance/1000
@@ -67,6 +70,7 @@ public class Game {
     }
 
     private void AddDuck(int nb){
+        if(MAX_NUMBEROFDUCKS == 0 || MAX_NUMBEROFDUCKS > NumberOfDucks)
         for (int i = 0;i<=nb ;i++) {
             System.out.println("nouvo canard");
             NumberOfDucks++;
@@ -75,10 +79,12 @@ public class Game {
     }
 
     private void AddLily(int nb){
-        for (int i = 0;i<nb ;i++) {
-            System.out.println("nouvo lily");
-            NumberOfLily++;
-            LilyArray.add(new WaterLily());
+        if(MAX_NUMBEROFLILY == 0 || MAX_NUMBEROFLILY > NumberOfLily) {
+            for (int i = 0; i < nb; i++) {
+                System.out.println("nouvo lily");
+                NumberOfLily++;
+                LilyArray.add(new WaterLily());
+            }
         }
     }
 

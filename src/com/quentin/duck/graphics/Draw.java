@@ -1,11 +1,8 @@
 package com.quentin.duck.graphics;
 
-import sun.print.PathGraphics;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 

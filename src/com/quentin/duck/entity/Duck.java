@@ -1,8 +1,13 @@
 package com.quentin.duck.entity;
 
+import com.quentin.duck.Game;
+
+import java.util.ArrayList;
+
 public class Duck {
     public int PosX;
-    public int PosY ;
+    public int PosY;
+    private int Target[];
     private int MoveLength;
     private float Weight;
     private int State; // (0: baby , 1: child etc..)
@@ -25,6 +30,17 @@ public class Duck {
         PosY += nb_random;
     }
     public void LilyHunting(){
+        ArrayList<Integer> ShortestTarget = null;
+        for (int i = 0 ;i< Game.NumberOfLily;i++){
+            if(ShortestTarget == null ) { // if is first lily
+                ShortestTarget.add(Game.LilyArray.get(i).PosX);
+                ShortestTarget.add(Game.LilyArray.get(i).PosY);
+            }
+            else{
+                ShortestTarget.set(0,Game.LilyArray.get(i).PosX);
+                ShortestTarget.set(0,Game.LilyArray.get(i).PosY);
+            }
+        }
         //TODO;
     }
 

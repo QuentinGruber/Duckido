@@ -31,4 +31,14 @@ public class Draw {
             e.printStackTrace();
         }
     }
+    public void waterLily(Graphics g, JPanel GamePanel,int x,int y){
+        try {
+            Image waterlily = ImageIO.read(new File("assets/waterlily.png"));
+            g.drawImage(waterlily, x, y, GamePanel);
+            //Pour une image de fond
+            //g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

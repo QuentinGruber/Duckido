@@ -27,9 +27,15 @@ public class GamePanel extends JPanel implements ActionListener {
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         var draw = new Draw();
+
         draw.background(g,this);
+
         for(int i = 1;i <= Game.NumberOfDucks;i++ ){ // draw all ducks
             draw.duck(g,this,Game.DuckArray[i].PosX,Game.DuckArray[i].PosY);
+        }
+
+        for(int i = 1;i <= Game.NumberOfLily;i++ ){ // draw all waterlily
+            draw.waterLily(g,this,Game.LilyArray[i].PosX,Game.LilyArray[i].PosY);
         }
 
     }

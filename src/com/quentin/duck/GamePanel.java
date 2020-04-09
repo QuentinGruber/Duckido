@@ -18,7 +18,8 @@ public class GamePanel extends JPanel implements ActionListener {
     public static Game Game = new Game();
 
     // FPS DEBUG
-    private int MaxFPS;
+    public static int MaxFPS;
+    public static int CurrentFPS;
     private long StartTime;
     private long numberOfCall;
 
@@ -28,7 +29,7 @@ public class GamePanel extends JPanel implements ActionListener {
         setPreferredSize(new Dimension(width, height));
         setFocusable(true);
         requestFocus();
-        MaxFPS = 30;
+        MaxFPS = 10;
         Timer timer = new Timer(1000/MaxFPS, this);
         timer.start();
     }
@@ -58,7 +59,8 @@ public class GamePanel extends JPanel implements ActionListener {
         long TimePass = (System.currentTimeMillis() / 1000) - StartTime;
         numberOfCall++;
         if(TimePass>0) {
-            System.out.println("FPS:"+numberOfCall / (TimePass));
+            CurrentFPS = (int) (numberOfCall / (TimePass));
+            System.out.println("FPS:"+(int) (numberOfCall / (TimePass)));
         }
         Game.MainLoop();
         repaint();

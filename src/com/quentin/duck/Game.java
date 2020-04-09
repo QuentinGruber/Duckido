@@ -9,14 +9,14 @@ import java.util.ArrayList;
 public class Game {
     // Duck stuff
     public static int NumberOfDucks; // number of ducks currently on the simulation
-    private final int START_NUMBEROFDUCKS = 2;
-    private final int MAX_NUMBEROFDUCKS = 10;
+    private final int START_NUMBEROFDUCKS = 1;
+    private final int MAX_NUMBEROFDUCKS = 1;
     public static ArrayList<Duck> DuckArray = new ArrayList<>();
 
     // Lily stuff
     public static int NumberOfLily; // number of lily currently on the simulation
-    private final int START_NUMBEROFLILY = 5;
-    private final int MAX_NUMBEROFLILY = 10;
+    private final int START_NUMBEROFLILY = 1;
+    private final int MAX_NUMBEROFLILY = 0;
 
     public static ArrayList<WaterLily> LilyArray = new ArrayList<>();
 
@@ -25,8 +25,8 @@ public class Game {
     private final int START_NUMBEROFROCKS = 3;
     public static ArrayList<Rocks> RocksArray = new ArrayList<>();
 
-    private int LilySpawnChance = 10; // LilySpawnChance/1000
-    private int DuckBornChance = 50; // DuckBornChance/1000
+    private int LilySpawnChance = 1000; // LilySpawnChance/1000
+    private int DuckBornChance = 100; // DuckBornChance/1000
     public Game(){
 
         // create starting object
@@ -44,7 +44,7 @@ public class Game {
     }
 
     public void MainLoop() {
-        DuckBornSystem();
+        //DuckBornSystem();
         LilySpawnSystem();
         DuckMoveSystem();
     }
@@ -56,14 +56,15 @@ public class Game {
     }
 
     public void DuckBornSystem() {
-        int nb_random = (int) (Math.random() * ((1000) + 1));
+        int nb_random = (int) (Math.random() * ((1000* GamePanel.CurrentFPS) + 1));
         if (nb_random < DuckBornChance) {
             AddDuck(1);
         }
     }
 
     public void LilySpawnSystem() {
-        int nb_random = (int) (Math.random() * ((1000) + 1));
+        int nb_random = (int) (Math.random() * ((1000 * GamePanel.CurrentFPS) + 1));
+        System.out.println("Lili chances : "+ (1000 * GamePanel.CurrentFPS));
         if (nb_random < LilySpawnChance) {
             AddLily(1);
         }
@@ -71,7 +72,7 @@ public class Game {
 
     private void AddDuck(int nb){
         if(MAX_NUMBEROFDUCKS == 0 || MAX_NUMBEROFDUCKS > NumberOfDucks)
-        for (int i = 0;i<=nb ;i++) {
+        for (int i = 0;i<nb ;i++) {
             System.out.println("nouvo canard");
             NumberOfDucks++;
             DuckArray.add(new Duck());

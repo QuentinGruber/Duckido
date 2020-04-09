@@ -21,7 +21,12 @@ public class Duck {
     }
 
     public void move(){
-        StationaryMove();
+        if(Game.NumberOfLily != 0) {
+            LilyHunting();
+        }
+        else{
+            StationaryMove();
+        }
     }
     public void StationaryMove(){
         int nb_random = (-MoveLength) + (int)(Math.random() * ((MoveLength - (-MoveLength)) + 1));
@@ -30,18 +35,33 @@ public class Duck {
         PosY += nb_random;
     }
     public void LilyHunting(){
-        ArrayList<Integer> ShortestTarget = null;
-        for (int i = 0 ;i< Game.NumberOfLily;i++){
-            if(ShortestTarget == null ) { // if is first lily
+        ArrayList<Integer> ShortestTarget = new ArrayList<>();
+        int ShortestTarget_distance = 0;
+        for (int i = 0 ;i < Game.NumberOfLily;i++){
+            if(ShortestTarget.size() == 0 ) { // if is first lily
+                System.out.println(("if"));
                 ShortestTarget.add(Game.LilyArray.get(i).PosX);
                 ShortestTarget.add(Game.LilyArray.get(i).PosY);
+                ShortestTarget_distance = ((ShortestTarget.get(0) - PosX)) + ((ShortestTarget.get(1) - PosY)) ;
+                if(ShortestTarget_distance < 0 ){
+                    ShortestTarget_distance *= -1;
+                }
             }
             else{
-                ShortestTarget.set(0,Game.LilyArray.get(i).PosX);
-                ShortestTarget.set(0,Game.LilyArray.get(i).PosY);
+                System.out.println(("else"));
+                int targetDistance = ((Game.LilyArray.get(i).PosX - PosX)) + ((Game.LilyArray.get(i).PosY - PosY));
+                if(targetDistance < 0 ){
+                    targetDistance *= -1;
+                }
+                System.out.println("shortest: "+ShortestTarget_distance+" target: "+targetDistance);
+                if(ShortestTarget_distance > targetDistance) {
+                    ShortestTarget.set(0, Game.LilyArray.get(i).PosX);
+                    ShortestTarget.set(1, Game.LilyArray.get(i).PosY);
+                    ShortestTarget_distance = targetDistance;
+                }
             }
+            System.out.println("shortestfinal: "+ShortestTarget_distance);
         }
-        //TODO;
     }
 
     public void FollowLeader(){

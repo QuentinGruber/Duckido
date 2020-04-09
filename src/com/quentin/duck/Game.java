@@ -3,6 +3,7 @@ package com.quentin.duck;
 import com.quentin.duck.entity.Duck;
 import com.quentin.duck.entity.Rocks;
 import com.quentin.duck.entity.WaterLily;
+import com.quentin.duck.utils.Random;
 
 import java.util.ArrayList;
 
@@ -25,62 +26,61 @@ public class Game {
     private final int START_NUMBEROFROCKS = 3;
     public static ArrayList<Rocks> RocksArray = new ArrayList<>();
 
-    private int LilySpawnChance = 1000; // LilySpawnChance/1000
-    private int DuckBornChance = 100; // DuckBornChance/1000
-    public Game(){
+    private final int LILY_SPAWN_CHANCE = 1000; // LILY_SPAWN_CHANCE/1000
+    private final int DUCK_BORN_CHANCE = 100; // DUCK_BORN_CHANCE/1000
+
+    public Game() {
 
         // create starting object
 
-        if(START_NUMBEROFDUCKS > 0) {
+        if (START_NUMBEROFDUCKS > 0) {
             AddDuck(START_NUMBEROFDUCKS);
         }
-        if(START_NUMBEROFLILY > 0) {
+        if (START_NUMBEROFLILY > 0) {
             AddLily(START_NUMBEROFLILY);
         }
-        if(START_NUMBEROFROCKS > 0) {
+        if (START_NUMBEROFROCKS > 0) {
             AddRocks(START_NUMBEROFROCKS);
         }
 
     }
 
     public void MainLoop() {
-        //DuckBornSystem();
+        DuckBornSystem();
         LilySpawnSystem();
         DuckMoveSystem();
     }
 
-    public void DuckMoveSystem() {
-        for(int i = 0;i < NumberOfDucks;i++ ){ // draw all ducks
+    public void DuckMoveSystem() { // execute move() of all ducks
+        for (int i = 0; i < NumberOfDucks; i++) { // draw all ducks
             DuckArray.get(i).move();
         }
     }
 
     public void DuckBornSystem() {
-        int nb_random = (int) (Math.random() * ((1000* GamePanel.CurrentFPS) + 1));
-        if (nb_random < DuckBornChance) {
+        if (Random.chance(DUCK_BORN_CHANCE, 1000 * GamePanel.CurrentFPS)) {
             AddDuck(1);
         }
     }
 
     public void LilySpawnSystem() {
-        int nb_random = (int) (Math.random() * ((1000 * GamePanel.CurrentFPS) + 1));
-        System.out.println("Lili chances : "+ (1000 * GamePanel.CurrentFPS));
-        if (nb_random < LilySpawnChance) {
+        System.out.println("Lili chances : " + (1000 * GamePanel.CurrentFPS));
+        if (Random.chance(LILY_SPAWN_CHANCE, 1000 * GamePanel.CurrentFPS)) {
             AddLily(1);
         }
     }
 
-    private void AddDuck(int nb){
-        if(MAX_NUMBEROFDUCKS == 0 || MAX_NUMBEROFDUCKS > NumberOfDucks)
-        for (int i = 0;i<nb ;i++) {
-            System.out.println("nouvo canard");
-            NumberOfDucks++;
-            DuckArray.add(new Duck());
-        }
+    private void AddDuck(int nb) {
+        if (MAX_NUMBEROFDUCKS == 0 || MAX_NUMBEROFDUCKS > NumberOfDucks)
+            for (int i = 0; i < nb; i++) {
+                System.out.println("nouvo canard");
+                NumberOfDucks++;
+                DuckArray.add(new Duck());
+            }
     }
 
-    private void AddLily(int nb){
-        if(MAX_NUMBEROFLILY == 0 || MAX_NUMBEROFLILY > NumberOfLily) {
+    private void AddLily(int nb) {
+        if (MAX_NUMBEROFLILY == 0 || MAX_NUMBEROFLILY > NumberOfLily) {
             for (int i = 0; i < nb; i++) {
                 System.out.println("nouvo lily");
                 NumberOfLily++;
@@ -89,8 +89,8 @@ public class Game {
         }
     }
 
-    private void AddRocks(int nb){
-        for (int i = 0;i<nb ;i++) {
+    private void AddRocks(int nb) {
+        for (int i = 0; i < nb; i++) {
             System.out.println("nouvo cailloux");
             NumberOfRocks++;
             RocksArray.add(new Rocks());

@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Draw {
-    public void background(Graphics g, JPanel GamePanel){
+    public void background(Graphics g, JPanel GamePanel) {
         try {
             Image bg = ImageIO.read(new File("assets/bg.png"));
             g.drawImage(bg, 0, 0, GamePanel);
@@ -16,7 +16,7 @@ public class Draw {
         }
     }
 
-    public void duck(Graphics g, JPanel GamePanel,int x,int y){
+    public void duck(Graphics g, JPanel GamePanel, int x, int y) {
         try {
             Image duck = ImageIO.read(new File("assets/duck.png"));
             g.drawImage(duck, x, y, GamePanel);
@@ -24,7 +24,8 @@ public class Draw {
             e.printStackTrace();
         }
     }
-    public void waterLily(Graphics g, JPanel GamePanel,int x,int y){
+
+    public void waterLily(Graphics g, JPanel GamePanel, int x, int y) {
         try {
             Image waterlily = ImageIO.read(new File("assets/waterlily.png"));
             g.drawImage(waterlily, x, y, GamePanel);
@@ -33,7 +34,7 @@ public class Draw {
         }
     }
 
-    public void rock(Graphics g, JPanel GamePanel,int x,int y){
+    public void rock(Graphics g, JPanel GamePanel, int x, int y) {
         try {
             Image rock = ImageIO.read(new File("assets/rock.png"));
             g.drawImage(rock, x, y, GamePanel);

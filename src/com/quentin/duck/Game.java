@@ -10,13 +10,13 @@ import java.util.ArrayList;
 public class Game {
     // Duck stuff
     public static int NumberOfDucks; // number of ducks currently on the simulation
-    private final int START_NUMBEROFDUCKS = 1;
-    private final int MAX_NUMBEROFDUCKS = 1;
+    private final int START_NUMBEROFDUCKS = 20;
+    private final int MAX_NUMBEROFDUCKS = 30;
     public static ArrayList<Duck> DuckArray = new ArrayList<>();
 
     // Lily stuff
     public static int NumberOfLily; // number of lily currently on the simulation
-    private final int START_NUMBEROFLILY = 1;
+    private final int START_NUMBEROFLILY = 4;
     private final int MAX_NUMBEROFLILY = 0;
 
     public static ArrayList<WaterLily> LilyArray = new ArrayList<>();
@@ -26,7 +26,7 @@ public class Game {
     private final int START_NUMBEROFROCKS = 3;
     public static ArrayList<Rocks> RocksArray = new ArrayList<>();
 
-    private final int LILY_SPAWN_CHANCE = 1000; // LILY_SPAWN_CHANCE/1000
+    private final int LILY_SPAWN_CHANCE = 100; // LILY_SPAWN_CHANCE/1000
     private final int DUCK_BORN_CHANCE = 100; // DUCK_BORN_CHANCE/1000
 
     public Game() {

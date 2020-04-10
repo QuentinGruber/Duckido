@@ -7,8 +7,9 @@ import java.util.ArrayList;
 public class Duck {
     public int PosX;
     public int PosY;
-    private int Target[];
-    private int MoveLength;
+    private int Target_posX = 0;
+    private int Target_posY = 0;
+    private final int MOVE_SPEED;
     private float Weight;
     private int State; // (0: baby , 1: child etc..)
     private boolean isLeader;
@@ -16,7 +17,7 @@ public class Duck {
     public Duck() { // Constructor
         PosX = (int) (Math.random() * ((600) + 1));
         PosY = (int) (Math.random() * ((800) + 1));
-        MoveLength = 5;
+        MOVE_SPEED = 5;
         isLeader = false;
     }
 
@@ -28,14 +29,31 @@ public class Duck {
         }
     }
 
-    public void StationaryMove() {
-        int nb_random = (-MoveLength) + (int) (Math.random() * ((MoveLength - (-MoveLength)) + 1));
+    private void GoToTarget() {
+
+        if(Target_posX <= PosX){
+            PosX -= MOVE_SPEED;
+        }
+        else{
+            PosX += MOVE_SPEED;
+        }
+
+        if(Target_posY <= PosY){
+            PosY -= MOVE_SPEED;
+        }
+        else{
+            PosY += MOVE_SPEED;
+        }
+    }
+
+    private void StationaryMove() {
+        int nb_random = (-MOVE_SPEED) + (int) (Math.random() * ((MOVE_SPEED - (-MOVE_SPEED)) + 1));
         PosX += nb_random;
-        nb_random = (-MoveLength) + (int) (Math.random() * ((MoveLength - (-MoveLength)) + 1));
+        nb_random = (-MOVE_SPEED) + (int) (Math.random() * ((MOVE_SPEED - (-MOVE_SPEED)) + 1));
         PosY += nb_random;
     }
 
-    public void LilyHunting() {
+    private void LilyHunting() {
         ArrayList<Integer> ShortestTarget = new ArrayList<>();
         int ShortestTarget_distance = 0;
         for (int i = 0; i < Game.NumberOfLily; i++) {
@@ -62,11 +80,11 @@ public class Duck {
         }
     }
 
-    public void FollowLeader() {
+    private void FollowLeader() {
         //TODO;
     }
 
-    public void Whistling() {
+    private void Whistling() {
         //TODO;
     }
 

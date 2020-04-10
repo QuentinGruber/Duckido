@@ -16,9 +16,12 @@ public class Draw {
         }
     }
 
-    public void duck(Graphics g, JPanel GamePanel, int x, int y) {
+    public void duck(Graphics g, JPanel GamePanel, int x, int y , int Duck_state) {
         try {
-            Image duck = ImageIO.read(new File("assets/duck.png"));
+            Image duck = null;
+            if(Duck_state == 1) {
+                duck = ImageIO.read(new File("assets/duck.png"));
+            }
             g.drawImage(duck, x, y, GamePanel);
         } catch (IOException e) {
             e.printStackTrace();

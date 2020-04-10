@@ -41,7 +41,8 @@ public class GamePanel extends JPanel implements ActionListener {
         }
 
         for (int i = 0; i < com.quentin.duck.Game.NumberOfDucks; i++) { // draw all ducks
-            draw.duck(g, this, com.quentin.duck.Game.DuckArray.get(i).PosX, com.quentin.duck.Game.DuckArray.get(i).PosY);
+            draw.duck(g, this, com.quentin.duck.Game.DuckArray.get(i).PosX,
+                    com.quentin.duck.Game.DuckArray.get(i).PosY,com.quentin.duck.Game.DuckArray.get(i).State);
         }
 
         for (int i = 0; i < com.quentin.duck.Game.NumberOfLily; i++) { // draw all waterlily
@@ -58,6 +59,9 @@ public class GamePanel extends JPanel implements ActionListener {
         numberOfCall++;
         if (TimePass > 0) {
             CurrentFPS = (int) (numberOfCall / (TimePass));
+            if(CurrentFPS < 1){
+                CurrentFPS = 1;
+            }
             System.out.println("FPS:" + (int) (numberOfCall / (TimePass)));
         }
 

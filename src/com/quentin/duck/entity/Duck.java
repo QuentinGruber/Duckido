@@ -1,31 +1,59 @@
 package com.quentin.duck.entity;
 
 import com.quentin.duck.Game;
+import com.quentin.duck.GamePanel;
 
 import java.util.ArrayList;
 
 public class Duck {
     public int PosX;
     public int PosY;
+    public int State; // (0: baby , 1: child etc..)
     private int Target_posX = 0;
     private int Target_posY = 0;
     private final int MOVE_SPEED;
-    private float Weight;
-    private int State; // (0: baby , 1: child etc..)
+
+    private double Weight;
+    private double Critical_Weight;
     private boolean isLeader;
 
     public Duck() { // Constructor
         PosX = (int) (Math.random() * ((600) + 1));
         PosY = (int) (Math.random() * ((800) + 1));
         MOVE_SPEED = 5;
+        Weight = 10.0 ; // TODO: check real duck weight
+        Critical_Weight = Weight / 2 ;
+        State = 1;
         isLeader = false;
     }
 
     public void move() {
+        Weight-= (1.0  / GamePanel.CurrentFPS)/5000; // lose weight each move TODO: en fonction des fps
+        Check_Weight();
         if (Game.NumberOfLily != 0) {
             LilyHunting();
         } else {
             StationaryMove();
+        }
+    }
+
+    private void Check_Weight() {
+        System.out.println(Weight);
+        if(Weight < Critical_Weight){
+            System.out.println("Dead");
+        }
+        else if (Weight > 15 && State == 0){
+            Critical_Weight = Weight / 2;
+            State = 1;
+        }
+        else if (Weight > 20 && State == 1){
+            Critical_Weight = Weight / 2;
+            State = 2;
+        }
+        else if (Weight > 25 && State == 2){
+            Critical_Weight = Weight / 2;
+            State = 3;
+            isLeader = true;
         }
     }
 
@@ -69,14 +97,12 @@ public class Duck {
                 if (targetDistance < 0) {
                     targetDistance *= -1;
                 }
-                System.out.println("shortest: " + ShortestTarget_distance + " target: " + targetDistance);
                 if (ShortestTarget_distance > targetDistance) {
                     ShortestTarget.set(0, Game.LilyArray.get(i).PosX);
                     ShortestTarget.set(1, Game.LilyArray.get(i).PosY);
                     ShortestTarget_distance = targetDistance;
                 }
             }
-            System.out.println("shortestfinal: " + ShortestTarget_distance);
         }
     }
 

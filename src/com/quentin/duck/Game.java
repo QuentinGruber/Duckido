@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class Game {
     // Duck stuff
     public static int NumberOfDucks; // number of ducks currently on the simulation
-    private final int START_NUMBEROFDUCKS = 20;
-    private final int MAX_NUMBEROFDUCKS = 30;
+    private final int START_NUMBEROFDUCKS = 1;
+    private final int MAX_NUMBEROFDUCKS = 1;
     public static ArrayList<Duck> DuckArray = new ArrayList<>();
 
     // Lily stuff
@@ -64,7 +64,6 @@ public class Game {
     }
 
     public void LilySpawnSystem() {
-        System.out.println("Lili chances : " + (1000 * GamePanel.CurrentFPS));
         if (Random.chance(LILY_SPAWN_CHANCE, 1000 * GamePanel.CurrentFPS)) {
             AddLily(1);
         }

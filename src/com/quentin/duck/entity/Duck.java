@@ -1,7 +1,6 @@
 package com.quentin.duck.entity;
 
 import com.quentin.duck.Game;
-import com.quentin.duck.GamePanel;
 
 import java.util.ArrayList;
 
@@ -28,8 +27,9 @@ public class Duck {
     }
 
     public void move() {
-        if (Game.NumberOfLily != 0 & false) {
+        if (Game.NumberOfLily != 0 ) {
             LilyHunting();
+            GoToTarget();
         } else {
             StationaryMove();
         }
@@ -83,6 +83,7 @@ public class Duck {
     private void LilyHunting() {
         ArrayList<Integer> ShortestTarget = new ArrayList<>();
         int ShortestTarget_distance = 0;
+        int ShortestTarget_distance_index = 0;
         for (int i = 0; i < Game.NumberOfLily; i++) {
             if (ShortestTarget.size() == 0) { // if is first lily
                 ShortestTarget.add(Game.LilyArray.get(i).PosX);
@@ -100,9 +101,12 @@ public class Duck {
                     ShortestTarget.set(0, Game.LilyArray.get(i).PosX);
                     ShortestTarget.set(1, Game.LilyArray.get(i).PosY);
                     ShortestTarget_distance = targetDistance;
+                    ShortestTarget_distance_index = i;
                 }
             }
         }
+        Target_posX = Game.LilyArray.get(ShortestTarget_distance_index).PosX;
+        Target_posY = Game.LilyArray.get(ShortestTarget_distance_index).PosY;
     }
 
     private void FollowLeader() {

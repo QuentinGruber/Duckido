@@ -25,7 +25,7 @@ public class GamePanel extends JPanel implements ActionListener {
         setPreferredSize(new Dimension(width, height));
         setFocusable(true);
         requestFocus();
-        MaxFPS = 10;
+        MaxFPS = 30;
         Timer timer = new Timer(1000 / MaxFPS, this);
         timer.start();
     }

@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class Game {
     // Duck stuff
     public static int NumberOfDucks; // number of ducks currently on the simulation
-    private final int START_NUMBEROFDUCKS = 1;
-    private final int MAX_NUMBEROFDUCKS = 1;
+    private final int START_NUMBEROFDUCKS = 10;
+    private final int MAX_NUMBEROFDUCKS = 0;
     public static ArrayList<Duck> DuckArray = new ArrayList<>();
 
     // Lily stuff
@@ -26,21 +26,39 @@ public class Game {
     private final int START_NUMBEROFROCKS = 3;
     public static ArrayList<Rocks> RocksArray = new ArrayList<>();
 
-    private final int LILY_SPAWN_CHANCE = 100; // LILY_SPAWN_CHANCE/1000
-    private final int DUCK_BORN_CHANCE = 100; // DUCK_BORN_CHANCE/1000
+    private final int LILY_SPAWN_CHANCE = 1000; // LILY_SPAWN_CHANCE/1000
+    private final int DUCK_BORN_CHANCE = 1000; // DUCK_BORN_CHANCE/1000
 
     public Game() {
 
         // create starting object
 
         if (START_NUMBEROFDUCKS > 0) {
-            AddDuck(START_NUMBEROFDUCKS);
+            Thread Add_START_NUMBEROFDUCKS = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    AddDuck(START_NUMBEROFDUCKS);
+                }
+            });
+            Add_START_NUMBEROFDUCKS.start();
         }
         if (START_NUMBEROFLILY > 0) {
-            AddLily(START_NUMBEROFLILY);
+            Thread Add_START_NUMBEROFLILY = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    AddLily(START_NUMBEROFLILY);
+                }
+            });
+            Add_START_NUMBEROFLILY.start();
         }
         if (START_NUMBEROFROCKS > 0) {
-            AddRocks(START_NUMBEROFROCKS);
+            Thread Add_START_NUMBEROFROCKS = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    AddRocks(START_NUMBEROFROCKS);
+                }
+            });
+            Add_START_NUMBEROFROCKS.start();
         }
 
     }
@@ -52,20 +70,38 @@ public class Game {
     }
 
     public void DuckMoveSystem() { // execute move() of all ducks
-        for (int i = 0; i < NumberOfDucks; i++) { // draw all ducks
-            DuckArray.get(i).move();
-        }
+        Thread DuckMoveSystem = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < NumberOfDucks; i++) { // draw all ducks
+                    DuckArray.get(i).move();
+                }
+            }
+        });
+        DuckMoveSystem.start();
     }
 
     public void DuckBornSystem() {
         if (Random.chance(DUCK_BORN_CHANCE, 1000 * GamePanel.CurrentFPS)) {
-            AddDuck(1);
+            Thread DuckBornSystem = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    AddDuck(1);
+                }
+            });
+            DuckBornSystem.start();
         }
     }
 
     public void LilySpawnSystem() {
         if (Random.chance(LILY_SPAWN_CHANCE, 1000 * GamePanel.CurrentFPS)) {
-            AddLily(1);
+            Thread LilySpawnSystem = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    AddLily(1);
+                }
+            });
+            LilySpawnSystem.start();
         }
     }
 

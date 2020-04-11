@@ -67,6 +67,19 @@ public class Game {
         DuckBornSystem();
         LilySpawnSystem();
         DuckMoveSystem();
+        DuckWeightSystem();
+    }
+
+    public void DuckWeightSystem() { // execute move() of all ducks
+        Thread DuckWeightSystem = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < NumberOfDucks; i++) { // draw all ducks
+                    DuckArray.get(i).Check_Weight();
+                }
+            }
+        });
+        DuckWeightSystem.start();
     }
 
     public void DuckMoveSystem() { // execute move() of all ducks

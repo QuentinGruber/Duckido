@@ -28,16 +28,15 @@ public class Duck {
     }
 
     public void move() {
-        Weight-= (1.0  / GamePanel.CurrentFPS)/5000; // lose weight each move TODO: en fonction des fps
-        Check_Weight();
-        if (Game.NumberOfLily != 0) {
+        if (Game.NumberOfLily != 0 & false) {
             LilyHunting();
         } else {
             StationaryMove();
         }
     }
 
-    private void Check_Weight() {
+    public void Check_Weight() {
+        Weight-= 1.0  /100;
         System.out.println(Weight);
         if(Weight < Critical_Weight){
             System.out.println("Dead");

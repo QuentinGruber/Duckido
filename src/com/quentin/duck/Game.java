@@ -16,8 +16,8 @@ public class Game {
 
     // Lily stuff
     public static int NumberOfLily; // number of lily currently on the simulation
-    private final int START_NUMBEROFLILY = 0;
-    private final int MAX_NUMBEROFLILY = -1;
+    private final int START_NUMBEROFLILY = 20;
+    private final int MAX_NUMBEROFLILY = 20;
 
     public static ArrayList<WaterLily> LilyArray = new ArrayList<>();
 

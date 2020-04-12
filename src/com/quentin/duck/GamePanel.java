@@ -17,6 +17,7 @@ public class GamePanel extends JPanel implements ActionListener {
     public static int CurrentFPS;
     FpsCounter fpsCounter;
     Draw draw;
+    Timer timer;
     public GamePanel(int width, int height) {
         setPreferredSize(new Dimension(width, height));
         setFocusable(true);
@@ -24,7 +25,8 @@ public class GamePanel extends JPanel implements ActionListener {
         MaxFPS = 60;
         fpsCounter = new FpsCounter();
         draw = new Draw();
-        Timer timer = new Timer(1000 / MaxFPS, this);
+        timer = new Timer(1000 / MaxFPS, this);
+        timer.setInitialDelay(100);
         timer.start();
     }
 

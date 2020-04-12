@@ -8,6 +8,7 @@ public class Duck {
     public int PosX;
     public int PosY;
     public int State; // (0: baby , 1: child etc..)
+    public boolean isLookingRight;
     private int Target_posX = 0;
     private int Target_posY = 0;
     private final int MOVE_SPEED;
@@ -19,10 +20,11 @@ public class Duck {
     public Duck() { // Constructor
         PosX = (int) (Math.random() * ((750) + 1));
         PosY = (int) (Math.random() * ((550) + 1));
-        MOVE_SPEED = 5;
+        MOVE_SPEED = 1;
         Weight = 10.0 ; // TODO: check real duck weight
         Critical_Weight = Weight / 2 ;
         State = 1;
+        isLookingRight = true;
         isLeader = false;
     }
 
@@ -57,17 +59,19 @@ public class Duck {
 
     private void GoToTarget() {
 
-        if(Target_posX <= PosX){
+        if(Target_posX < PosX){
+            isLookingRight = false;
             PosX -= MOVE_SPEED;
         }
-        else{
+        else if (Target_posX > PosX){
+            isLookingRight = true;
             PosX += MOVE_SPEED;
         }
 
-        if(Target_posY <= PosY){
+        if(Target_posY < PosY){
             PosY -= MOVE_SPEED;
         }
-        else{
+        else if (Target_posY > PosY){
             PosY += MOVE_SPEED;
         }
     }

@@ -10,14 +10,14 @@ import java.util.ArrayList;
 public class Game {
     // Duck stuff
     public static int NumberOfDucks; // number of ducks currently on the simulation
-    private final int START_NUMBEROFDUCKS = 30;
-    private final int MAX_NUMBEROFDUCKS = 30;
+    private final int START_NUMBEROFDUCKS = 20;
+    private final int MAX_NUMBEROFDUCKS = 20;
     public static ArrayList<Duck> DuckArray = new ArrayList<>();
 
     // Lily stuff
     public static int NumberOfLily; // number of lily currently on the simulation
-    private final int START_NUMBEROFLILY = 15;
-    private final int MAX_NUMBEROFLILY = 15;
+    private final int START_NUMBEROFLILY = 0;
+    private final int MAX_NUMBEROFLILY = -1;
 
     public static ArrayList<WaterLily> LilyArray = new ArrayList<>();
 
@@ -121,7 +121,7 @@ public class Game {
     private void AddDuck(int nb) {
         if (MAX_NUMBEROFDUCKS == 0 || MAX_NUMBEROFDUCKS > NumberOfDucks)
             for (int i = 0; i < nb; i++) {
-                System.out.println("nouvo canard");
+               // System.out.println("nouvo canard");
                 NumberOfDucks++;
                 DuckArray.add(new Duck());
             }
@@ -130,7 +130,7 @@ public class Game {
     private void AddLily(int nb) {
         if (MAX_NUMBEROFLILY == 0 || MAX_NUMBEROFLILY > NumberOfLily) {
             for (int i = 0; i < nb; i++) {
-                System.out.println("nouvo lily");
+              //  System.out.println("nouvo lily");
                 NumberOfLily++;
                 LilyArray.add(new WaterLily());
             }
@@ -139,7 +139,7 @@ public class Game {
 
     private void AddRocks(int nb) {
         for (int i = 0; i < nb; i++) {
-            System.out.println("nouvo cailloux");
+           // System.out.println("nouvo cailloux");
             NumberOfRocks++;
             RocksArray.add(new Rocks());
         }

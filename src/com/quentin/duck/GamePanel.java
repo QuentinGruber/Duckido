@@ -16,20 +16,20 @@ public class GamePanel extends JPanel implements ActionListener {
     public static int MaxFPS;
     public static int CurrentFPS;
     FpsCounter fpsCounter;
-
+    Draw draw;
     public GamePanel(int width, int height) {
         setPreferredSize(new Dimension(width, height));
         setFocusable(true);
         requestFocus();
-        MaxFPS = 30;
+        MaxFPS = 60;
         fpsCounter = new FpsCounter();
+        draw = new Draw();
         Timer timer = new Timer(1000 / MaxFPS, this);
         timer.start();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        var draw = new Draw();
 
         draw.background(g, this);
 

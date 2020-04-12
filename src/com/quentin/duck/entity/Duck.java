@@ -29,7 +29,6 @@ public class Duck {
     public void move() {
         if (Game.NumberOfLily != 0 ) {
             LilyHunting();
-            GoToTarget();
         } else {
             StationaryMove();
         }
@@ -37,9 +36,9 @@ public class Duck {
 
     public void Check_Weight() {
         Weight-= 1.0  /100;
-        System.out.println(Weight);
+        //System.out.println(Weight);
         if(Weight < Critical_Weight){
-            System.out.println("Dead");
+            //System.out.println("Dead");
         }
         else if (Weight > 15 && State == 0){
             Critical_Weight = Weight / 2;
@@ -80,33 +79,38 @@ public class Duck {
         PosY += nb_random;
     }
 
+    private int CalculateTargetDistance(int x,int y){
+        int Target_distance_x = (x - PosX);
+        int Target_distance_y = (y - PosY);
+        if(Target_distance_x < 0){
+            Target_distance_x *= -1;
+        }
+        if(Target_distance_y < 0){
+            Target_distance_y *= -1;
+        }
+        return Target_distance_x + Target_distance_y;
+    }
     private void LilyHunting() {
         ArrayList<Integer> ShortestTarget = new ArrayList<>();
         int ShortestTarget_distance = 0;
-        int ShortestTarget_distance_index = 0;
         for (int i = 0; i < Game.NumberOfLily; i++) {
             if (ShortestTarget.size() == 0) { // if is first lily
                 ShortestTarget.add(Game.LilyArray.get(i).PosX);
                 ShortestTarget.add(Game.LilyArray.get(i).PosY);
-                ShortestTarget_distance = ((ShortestTarget.get(0) - PosX)) + ((ShortestTarget.get(1) - PosY));
-                if (ShortestTarget_distance < 0) {
-                    ShortestTarget_distance *= -1;
-                }
+                ShortestTarget_distance = CalculateTargetDistance(ShortestTarget.get(0),ShortestTarget.get(1));
             } else {
-                int targetDistance = ((Game.LilyArray.get(i).PosX - PosX)) + ((Game.LilyArray.get(i).PosY - PosY));
-                if (targetDistance < 0) {
-                    targetDistance *= -1;
-                }
+                int targetDistance = CalculateTargetDistance(Game.LilyArray.get(i).PosX,Game.LilyArray.get(i).PosY);
+
                 if (ShortestTarget_distance > targetDistance) {
                     ShortestTarget.set(0, Game.LilyArray.get(i).PosX);
                     ShortestTarget.set(1, Game.LilyArray.get(i).PosY);
-                    ShortestTarget_distance = targetDistance;
-                    ShortestTarget_distance_index = i;
+                    ShortestTarget_distance = CalculateTargetDistance(ShortestTarget.get(0),ShortestTarget.get(1));
                 }
             }
         }
-        Target_posX = Game.LilyArray.get(ShortestTarget_distance_index).PosX;
-        Target_posY = Game.LilyArray.get(ShortestTarget_distance_index).PosY;
+        Target_posX = ShortestTarget.get(0);
+        Target_posY = ShortestTarget.get(1);
+        GoToTarget();
     }
 
     private void FollowLeader() {

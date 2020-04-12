@@ -10,14 +10,14 @@ import java.util.ArrayList;
 public class Game {
     // Duck stuff
     public static int NumberOfDucks; // number of ducks currently on the simulation
-    private final int START_NUMBEROFDUCKS = 20;
-    private final int MAX_NUMBEROFDUCKS = 20;
+    private final int START_NUMBEROFDUCKS = 60;
+    private final int MAX_NUMBEROFDUCKS = 60;
     public static ArrayList<Duck> DuckArray = new ArrayList<>();
 
     // Lily stuff
     public static int NumberOfLily; // number of lily currently on the simulation
-    private final int START_NUMBEROFLILY = 20;
-    private final int MAX_NUMBEROFLILY = 20;
+    private final int START_NUMBEROFLILY = 0;
+    private final int MAX_NUMBEROFLILY = -1;
 
     public static ArrayList<WaterLily> LilyArray = new ArrayList<>();
 

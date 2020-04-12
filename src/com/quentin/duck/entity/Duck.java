@@ -17,8 +17,8 @@ public class Duck {
     private boolean isLeader;
 
     public Duck() { // Constructor
-        PosX = (int) (Math.random() * ((600) + 1));
-        PosY = (int) (Math.random() * ((800) + 1));
+        PosX = (int) (Math.random() * ((750) + 1));
+        PosY = (int) (Math.random() * ((550) + 1));
         MOVE_SPEED = 5;
         Weight = 10.0 ; // TODO: check real duck weight
         Critical_Weight = Weight / 2 ;

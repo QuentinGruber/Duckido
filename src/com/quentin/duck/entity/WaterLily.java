@@ -5,7 +5,7 @@ public class WaterLily {
     public int PosY;
 
     public WaterLily() { // Constructor
-        PosX = (int) (Math.random() * ((600) + 1));
-        PosY = (int) (Math.random() * ((800) + 1));
+        PosX = (int) (Math.random() * ((750) + 1));
+        PosY = (int) (Math.random() * ((550) + 1));
     }
 }

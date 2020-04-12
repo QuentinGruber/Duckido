@@ -1,6 +1,7 @@
 package com.quentin.duck;
 
 import com.quentin.duck.graphics.Draw;
+import com.quentin.duck.utils.FpsCounter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,18 +15,14 @@ public class GamePanel extends JPanel implements ActionListener {
     public static Game Game = new Game();
     public static int MaxFPS;
     public static int CurrentFPS;
-
-    // FPS DEBUG
-    private final long StartTime;
-    private long numberOfCall;
+    FpsCounter fpsCounter;
 
     public GamePanel(int width, int height) {
-        StartTime = System.currentTimeMillis() / 1000;
-        numberOfCall = 0;
         setPreferredSize(new Dimension(width, height));
         setFocusable(true);
         requestFocus();
         MaxFPS = 30;
+        fpsCounter = new FpsCounter();
         Timer timer = new Timer(1000 / MaxFPS, this);
         timer.start();
     }
@@ -56,15 +53,7 @@ public class GamePanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         // Calculate & display FPS
-        long TimePass = (System.currentTimeMillis() / 1000) - StartTime;
-        numberOfCall++;
-        if (TimePass > 0) {
-            CurrentFPS = (int) (numberOfCall / (TimePass));
-            if(CurrentFPS < 1){
-                CurrentFPS = 1;
-            }
-            System.out.println("FPS:" + (int) (numberOfCall / (TimePass)));
-        }
+        fpsCounter.AddCalls();
 
         // Run main loop
         Game.MainLoop();

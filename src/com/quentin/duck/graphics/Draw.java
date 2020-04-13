@@ -19,12 +19,36 @@ public class Draw {
     public void duck(Graphics g, JPanel GamePanel, int x, int y , int Duck_state,boolean lookingRight) {
         try {
             Image duck = null;
-            if(Duck_state == 1) {
+            if(Duck_state == 0) {
                 if(lookingRight) {
                     duck = ImageIO.read(new File("assets/duck/duck0/duck_r.png"));
                 }
                 else{
                     duck = ImageIO.read(new File("assets/duck/duck0/duck_l.png"));
+                }
+            }
+            if(Duck_state == 1) {
+                if(lookingRight) {
+                    duck = ImageIO.read(new File("assets/duck/duck1/duck_r.png"));
+                }
+                else{
+                    duck = ImageIO.read(new File("assets/duck/duck1/duck_l.png"));
+                }
+            }
+            if(Duck_state == 2) {
+                if(lookingRight) {
+                    duck = ImageIO.read(new File("assets/duck/duck2/duck_r.png"));
+                }
+                else{
+                    duck = ImageIO.read(new File("assets/duck/duck2/duck_l.png"));
+                }
+            }
+            if(Duck_state == 3) {
+                if(lookingRight) {
+                    duck = ImageIO.read(new File("assets/duck/duckleader/duck_r.png"));
+                }
+                else{
+                    duck = ImageIO.read(new File("assets/duck/duckleader/duck_l.png"));
                 }
             }
             g.drawImage(duck, x, y, GamePanel);

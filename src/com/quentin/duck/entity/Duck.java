@@ -2,6 +2,7 @@ package com.quentin.duck.entity;
 
 import com.quentin.duck.Game;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Duck {
@@ -26,6 +27,10 @@ public class Duck {
         State = 1;
         isLookingRight = true;
         isLeader = false;
+    }
+
+    public Rectangle bounds(){
+        return (new Rectangle(PosX,PosY,30,30));
     }
 
     public void move() {

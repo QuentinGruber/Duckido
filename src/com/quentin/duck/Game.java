@@ -5,19 +5,20 @@ import com.quentin.duck.entity.Rocks;
 import com.quentin.duck.entity.WaterLily;
 import com.quentin.duck.utils.Random;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Game {
     // Duck stuff
     public static int NumberOfDucks; // number of ducks currently on the simulation
-    private final int START_NUMBEROFDUCKS = 60;
-    private final int MAX_NUMBEROFDUCKS = 60;
+    private final int START_NUMBEROFDUCKS = 1;
+    private final int MAX_NUMBEROFDUCKS = 1;
     public static ArrayList<Duck> DuckArray = new ArrayList<>();
 
     // Lily stuff
     public static int NumberOfLily; // number of lily currently on the simulation
-    private final int START_NUMBEROFLILY = 0;
-    private final int MAX_NUMBEROFLILY = -1;
+    private final int START_NUMBEROFLILY = 1;
+    private final int MAX_NUMBEROFLILY = 1;
 
     public static ArrayList<WaterLily> LilyArray = new ArrayList<>();
 
@@ -67,7 +68,21 @@ public class Game {
         DuckBornSystem();
         LilySpawnSystem();
         DuckMoveSystem();
+        CheckCollid();
         DuckWeightSystem();
+    }
+
+    public void CheckCollid(){
+        for (int i = 0; i < NumberOfDucks; i++) { // for all duck
+            // check if is colliding with any lily
+            for (int j = 0; j < NumberOfLily; j++) {
+                Rectangle duck = DuckArray.get(i).bounds();
+                Rectangle lily = LilyArray.get(j).bounds();
+                if(duck.intersects(lily)){
+                    System.out.println("collisioooon");
+                }
+            }
+        }
     }
 
     public void DuckWeightSystem() { // execute move() of all ducks

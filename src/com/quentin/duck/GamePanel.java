@@ -23,6 +23,7 @@ public class GamePanel extends JPanel implements ActionListener {
         setFocusable(true);
         requestFocus();
         MaxFPS = 60;
+        CurrentFPS = 1;
         fpsCounter = new FpsCounter();
         draw = new Draw();
         timer = new Timer(1000 / MaxFPS, this);
@@ -56,6 +57,8 @@ public class GamePanel extends JPanel implements ActionListener {
 
         // Calculate & display FPS
         fpsCounter.AddCalls();
+
+        CurrentFPS = fpsCounter.GetFPS();
 
         // Run main loop
         Game.MainLoop();

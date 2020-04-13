@@ -11,14 +11,14 @@ import java.util.ArrayList;
 public class Game {
     // Duck stuff
     public static int NumberOfDucks; // number of ducks currently on the simulation
-    private final int START_NUMBEROFDUCKS = 1;
-    private final int MAX_NUMBEROFDUCKS = 1;
+    private final int START_NUMBEROFDUCKS = 5;
+    private final int MAX_NUMBEROFDUCKS = 5;
     public static ArrayList<Duck> DuckArray = new ArrayList<>();
 
     // Lily stuff
     public static int NumberOfLily; // number of lily currently on the simulation
-    private final int START_NUMBEROFLILY = 1;
-    private final int MAX_NUMBEROFLILY = 1;
+    private final int START_NUMBEROFLILY = 20;
+    private final int MAX_NUMBEROFLILY = 20;
 
     public static ArrayList<WaterLily> LilyArray = new ArrayList<>();
 
@@ -27,7 +27,7 @@ public class Game {
     private final int START_NUMBEROFROCKS = 0;
     public static ArrayList<Rocks> RocksArray = new ArrayList<>();
 
-    private final int LILY_SPAWN_CHANCE = 1000; // LILY_SPAWN_CHANCE/1000
+    private final int LILY_SPAWN_CHANCE = 100; // LILY_SPAWN_CHANCE/1000
     private final int DUCK_BORN_CHANCE = 100; // DUCK_BORN_CHANCE/1000
 
     public Game() {
@@ -75,11 +75,17 @@ public class Game {
     public void CheckCollid(){
         for (int i = 0; i < NumberOfDucks; i++) { // for all duck
             // check if is colliding with any lily
-            for (int j = 0; j < NumberOfLily; j++) {
-                Rectangle duck = DuckArray.get(i).bounds();
-                Rectangle lily = LilyArray.get(j).bounds();
-                if(duck.intersects(lily)){
-                    System.out.println("collisioooon");
+            if(NumberOfLily > 0) {
+                for (int j = 0; j < LilyArray.size(); j++) {
+                    if (!LilyArray.get(j).deleted) {
+                        Rectangle duck = DuckArray.get(i).bounds();
+                        Rectangle lily = LilyArray.get(j).bounds();
+                        if (duck.intersects(lily)) {
+                            NumberOfLily--;
+                            LilyArray.get(j).deleted = true;
+                            DuckArray.get(i).Eat();
+                        }
+                    }
                 }
             }
         }
@@ -122,6 +128,7 @@ public class Game {
     }
 
     public void LilySpawnSystem() {
+
         if (Random.chance(LILY_SPAWN_CHANCE, 1000 * GamePanel.CurrentFPS)) {
             Thread LilySpawnSystem = new Thread(new Runnable() {
                 @Override

@@ -46,8 +46,10 @@ public class GamePanel extends JPanel implements ActionListener {
                     com.quentin.duck.Game.DuckArray.get(i).isLookingRight);
         }
 
-        for (int i = 0; i < com.quentin.duck.Game.NumberOfLily; i++) { // draw all waterlily
-            draw.waterLily(g, this, com.quentin.duck.Game.LilyArray.get(i).PosX, com.quentin.duck.Game.LilyArray.get(i).PosY);
+        for (int i = 0; i < com.quentin.duck.Game.LilyArray.size(); i++) { // draw all waterlily
+            if(!com.quentin.duck.Game.LilyArray.get(i).deleted){
+                draw.waterLily(g, this, com.quentin.duck.Game.LilyArray.get(i).PosX, com.quentin.duck.Game.LilyArray.get(i).PosY);
+            }
         }
 
     }

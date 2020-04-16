@@ -12,13 +12,13 @@ public class Game {
     // Duck stuff
     public static int NumberOfDucks; // number of ducks currently on the simulation
     private final int START_NUMBEROFDUCKS = 5;
-    private final int MAX_NUMBEROFDUCKS = 5;
+    private final int MAX_NUMBEROFDUCKS = 100;
     public static ArrayList<Duck> DuckArray = new ArrayList<>();
 
     // Lily stuff
     public static int NumberOfLily; // number of lily currently on the simulation
     private final int START_NUMBEROFLILY = 20;
-    private final int MAX_NUMBEROFLILY = 20;
+    private final int MAX_NUMBEROFLILY = 100;
 
     public static ArrayList<WaterLily> LilyArray = new ArrayList<>();
 
@@ -27,8 +27,9 @@ public class Game {
     private final int START_NUMBEROFROCKS = 0;
     public static ArrayList<Rocks> RocksArray = new ArrayList<>();
 
-    private final int LILY_SPAWN_CHANCE = 100; // LILY_SPAWN_CHANCE/1000
-    private final int DUCK_BORN_CHANCE = 100; // DUCK_BORN_CHANCE/1000
+    private static int count_frame;
+    private final int LILY_SPAWN_CHANCE = 1000; // LILY_SPAWN_CHANCE/1000
+    private final int DUCK_BORN_CHANCE = 1000; // DUCK_BORN_CHANCE/1000
 
     public Game() {
 
@@ -65,11 +66,15 @@ public class Game {
     }
 
     public void MainLoop() {
-        DuckBornSystem();
-        LilySpawnSystem();
+        count_frame ++;
+        if(count_frame > GamePanel.MaxFPS){
+            count_frame = 0;
+            DuckBornSystem();
+            LilySpawnSystem();
+            DuckWeightSystem();
+        }
         DuckMoveSystem();
         CheckCollid();
-        DuckWeightSystem();
     }
 
     public void CheckCollid(){
@@ -116,7 +121,7 @@ public class Game {
     }
 
     public void DuckBornSystem() {
-        if (Random.chance(DUCK_BORN_CHANCE, 1000 * GamePanel.CurrentFPS)) {
+        if (Random.chance(DUCK_BORN_CHANCE, 1000)) {
             Thread DuckBornSystem = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -129,7 +134,7 @@ public class Game {
 
     public void LilySpawnSystem() {
 
-        if (Random.chance(LILY_SPAWN_CHANCE, 1000 * GamePanel.CurrentFPS)) {
+        if (Random.chance(LILY_SPAWN_CHANCE, 1000)) {
             Thread LilySpawnSystem = new Thread(new Runnable() {
                 @Override
                 public void run() {

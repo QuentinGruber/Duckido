@@ -34,7 +34,7 @@ public class Duck {
     }
 
     public void move() {
-        System.out.println(Game.NumberOfLily);
+        //System.out.println(Game.NumberOfLily);
         if (Game.NumberOfLily != 0 ) {
             LilyHunting();
         } else {

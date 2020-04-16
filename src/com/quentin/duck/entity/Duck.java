@@ -32,6 +32,10 @@ public class Duck {
         isLeader = false;
     }
 
+    public void bornSound() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        Sound.playSound("assets/sound/coincoin.wav");
+    }
+
     public Rectangle bounds(){
         return (new Rectangle(PosX,PosY,30,30));
     }

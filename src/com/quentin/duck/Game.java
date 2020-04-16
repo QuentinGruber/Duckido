@@ -168,7 +168,13 @@ public class Game {
             for (int i = 0; i < nb; i++) {
                // System.out.println("nouvo canard");
                 NumberOfDucks++;
-                DuckArray.add(new Duck());
+                Duck duck = new Duck();
+                DuckArray.add(duck);
+                try {
+                    duck.bornSound();
+                } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+                    e.printStackTrace();
+                }
             }
     }
 

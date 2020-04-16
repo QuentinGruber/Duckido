@@ -37,7 +37,12 @@ public class Duck {
     }
 
     public Rectangle bounds(){
-        return (new Rectangle(PosX,PosY,30,30));
+        if(State == 0) {
+            return (new Rectangle(PosX, PosY, 40, 30));
+        }
+        else{
+            return (new Rectangle(PosX, PosY, 80, 60));
+        }
     }
 
     public void move() {

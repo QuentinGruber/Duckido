@@ -1,8 +1,11 @@
 package com.quentin.duck.entity;
 
 import com.quentin.duck.Game;
+import com.quentin.duck.utils.Sound;
 
+import javax.sound.sampled.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Duck {
@@ -21,7 +24,7 @@ public class Duck {
     public Duck() { // Constructor
         PosX = (int) (Math.random() * ((750) + 1));
         PosY = (int) (Math.random() * ((550) + 1));
-        MOVE_SPEED = 5;
+        MOVE_SPEED = 1;
         Weight = 10.0 ; // TODO: check real duck weight
         Critical_Weight = Weight / 2 ;
         State = 0;
@@ -42,11 +45,12 @@ public class Duck {
         }
     }
 
-    public synchronized void Eat(){
+    public synchronized void Eat() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         Weight += 1;
+        Sound.playSound("assets/sound/miam.wav");
     }
 
-    public void Check_Weight() {
+    public void Check_Weight() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         Weight-= 1.0  /100;
         //System.out.println(Weight);
         if(Weight < Critical_Weight){
@@ -63,6 +67,7 @@ public class Duck {
         else if (Weight > 25 && State == 2){
             Critical_Weight = Weight / 2;
             State = 3;
+            Whistling();
             isLeader = true;
         }
     }
@@ -133,8 +138,8 @@ public class Duck {
         //TODO;
     }
 
-    private void Whistling() {
+    private void Whistling() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        Sound.playSound("assets/sound/Whistling.wav");
         //TODO;
     }
-
 }

@@ -5,14 +5,17 @@ import com.quentin.duck.entity.Rocks;
 import com.quentin.duck.entity.WaterLily;
 import com.quentin.duck.utils.Random;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Game {
     // Duck stuff
     public static int NumberOfDucks; // number of ducks currently on the simulation
-    private final int START_NUMBEROFDUCKS = 5;
-    private final int MAX_NUMBEROFDUCKS = 100;
+    private final int START_NUMBEROFDUCKS = 1;
+    private final int MAX_NUMBEROFDUCKS = 1;
     public static ArrayList<Duck> DuckArray = new ArrayList<>();
 
     // Lily stuff
@@ -92,7 +95,11 @@ public class Game {
                             Thread eating = new Thread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    DuckArray.get(finalI).Eat();
+                                    try {
+                                        DuckArray.get(finalI).Eat();
+                                    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                             });
                             eating.start();
@@ -108,7 +115,11 @@ public class Game {
             @Override
             public void run() {
                 for (int i = 0; i < NumberOfDucks; i++) { // draw all ducks
-                    DuckArray.get(i).Check_Weight();
+                    try {
+                        DuckArray.get(i).Check_Weight();
+                    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });

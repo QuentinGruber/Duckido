@@ -88,7 +88,14 @@ public class Game {
                         if (duck.intersects(lily)) {
                             NumberOfLily--;
                             LilyArray.get(j).deleted = true;
-                            DuckArray.get(i).Eat();
+                            int finalI = i;
+                            Thread eating = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    DuckArray.get(finalI).Eat();
+                                }
+                            });
+                            eating.start();
                         }
                     }
                 }

@@ -42,7 +42,7 @@ public class Duck {
         }
     }
 
-    public void Eat(){
+    public synchronized void Eat(){
         Weight += 1;
     }
 

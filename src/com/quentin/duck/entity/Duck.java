@@ -24,7 +24,7 @@ public class Duck {
     public Duck() { // Constructor
         PosX = (int) (Math.random() * ((750) + 1));
         PosY = (int) (Math.random() * ((550) + 1));
-        MOVE_SPEED = 1;
+        MOVE_SPEED = 1; // TODO: remove it DEBUG only
         Weight = 10.0 ; // TODO: check real duck weight
         Critical_Weight = Weight / 2 ;
         State = 0;

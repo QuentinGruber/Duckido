@@ -81,28 +81,30 @@ public class Game {
     }
 
     public void CheckCollid(){
-        for (int i = 0; i < NumberOfDucks; i++) { // for all duck
-            // check if is colliding with any lily
-            if(NumberOfLily > 0) {
-                for (int j = 0; j < LilyArray.size(); j++) {
-                    if (!LilyArray.get(j).deleted) {
-                        Rectangle duck = DuckArray.get(i).bounds();
-                        Rectangle lily = LilyArray.get(j).bounds();
-                        if (duck.intersects(lily)) {
-                            NumberOfLily--;
-                            LilyArray.get(j).deleted = true;
-                            int finalI = i;
-                            Thread eating = new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    try {
-                                        DuckArray.get(finalI).Eat();
-                                    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-                                        e.printStackTrace();
+        for (int i = 0; i < DuckArray.size(); i++) { // for all duck
+            if (DuckArray.get(i).isAlive) {
+                // check if is colliding with any lily
+                if (NumberOfLily > 0) {
+                    for (int j = 0; j < LilyArray.size(); j++) {
+                        if (!LilyArray.get(j).deleted) {
+                            Rectangle duck = DuckArray.get(i).bounds();
+                            Rectangle lily = LilyArray.get(j).bounds();
+                            if (duck.intersects(lily)) {
+                                NumberOfLily--;
+                                LilyArray.get(j).deleted = true;
+                                int finalI = i;
+                                Thread eating = new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            DuckArray.get(finalI).Eat();
+                                        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+                                            e.printStackTrace();
+                                        }
                                     }
-                                }
-                            });
-                            eating.start();
+                                });
+                                eating.start();
+                            }
                         }
                     }
                 }
@@ -114,11 +116,13 @@ public class Game {
         Thread DuckWeightSystem = new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < NumberOfDucks; i++) { // draw all ducks
-                    try {
-                        DuckArray.get(i).Check_Weight();
-                    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-                        e.printStackTrace();
+                for (int i = 0; i < DuckArray.size(); i++) { // draw all ducks
+                    if(DuckArray.get(i).isAlive) {
+                        try {
+                            DuckArray.get(i).Check_Weight();
+                        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -130,8 +134,10 @@ public class Game {
         Thread DuckMoveSystem = new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < NumberOfDucks; i++) { // draw all ducks
-                    DuckArray.get(i).move();
+                for (int i = 0; i < DuckArray.size(); i++) { // draw all ducks
+                    if(DuckArray.get(i).isAlive) {
+                        DuckArray.get(i).move();
+                    }
                 }
             }
         });

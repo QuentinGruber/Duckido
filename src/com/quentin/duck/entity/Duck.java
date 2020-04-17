@@ -13,6 +13,7 @@ public class Duck {
     public int PosY;
     public int State; // (0: baby , 1: child etc..)
     public boolean isLookingRight;
+    public  boolean isAlive;
     private int Target_posX = 0;
     private int Target_posY = 0;
     private final int MOVE_SPEED;
@@ -25,10 +26,11 @@ public class Duck {
         PosX = (int) (Math.random() * ((750) + 1));
         PosY = (int) (Math.random() * ((550) + 1));
         MOVE_SPEED = 1; // TODO: remove it DEBUG only
-        Weight = 10.0 ; // TODO: check real duck weight
-        Critical_Weight = Weight / 2 ;
+        Weight = 0.72 ; // Weight is in kg
+        Critical_Weight = Weight / 1.2 ;
         State = 0;
         isLookingRight = true;
+        isAlive = true;
         isLeader = false;
     }
 
@@ -55,26 +57,28 @@ public class Duck {
     }
 
     public synchronized void Eat() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        Weight += 1;
+        Weight += 0.1;
         Sound.playSound("assets/sound/miam.wav");
     }
 
     public void Check_Weight() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        Weight-= 1.0  /100;
+        Weight-= 0.005; // lose every fixed time
         //System.out.println(Weight);
         if(Weight < Critical_Weight){
-            //System.out.println("Dead");
+            isAlive = false;
+            Game.NumberOfDucks--;
+            Sound.playSound("assets/sound/dead.wav");
         }
-        else if (Weight > 15 && State == 0){
-            Critical_Weight = Weight / 2;
+        else if (Weight > 0.90 && State == 0){
+            Critical_Weight = Weight / 1.3;
             State = 1;
         }
-        else if (Weight > 20 && State == 1){
-            Critical_Weight = Weight / 2;
+        else if (Weight > 1.3 && State == 1){
+            Critical_Weight = Weight / 1.4;
             State = 2;
         }
-        else if (Weight > 25 && State == 2){
-            Critical_Weight = Weight / 2;
+        else if (Weight > 1.6 && State == 2){
+            Critical_Weight = Weight / 1.5;
             State = 3;
             Whistling();
             isLeader = true;

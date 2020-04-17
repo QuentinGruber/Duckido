@@ -46,12 +46,14 @@ public class GamePanel extends JPanel implements ActionListener {
             }
         }
 
-        for (int i = 0; i < com.quentin.duck.Game.NumberOfDucks; i++) { // draw all ducks
-            draw.duck(g, this, com.quentin.duck.Game.DuckArray.get(i).PosX,
-                    com.quentin.duck.Game.DuckArray.get(i).PosY,com.quentin.duck.Game.DuckArray.get(i).State,
-                    com.quentin.duck.Game.DuckArray.get(i).isLookingRight);
+        for (int i = 0; i < com.quentin.duck.Game.DuckArray.size(); i++) { // draw all ducks
+            if(com.quentin.duck.Game.DuckArray.get(i).isAlive) {
+                draw.duck(g, this, com.quentin.duck.Game.DuckArray.get(i).PosX,
+                        com.quentin.duck.Game.DuckArray.get(i).PosY, com.quentin.duck.Game.DuckArray.get(i).State,
+                        com.quentin.duck.Game.DuckArray.get(i).isLookingRight);
+            }
         }
-        
+
     }
 
     @Override

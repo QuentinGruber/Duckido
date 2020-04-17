@@ -81,25 +81,39 @@ public class Game {
     }
 
     public void CheckCollid(){
+        int collide_setback = 10;
         for (int i = 0; i < DuckArray.size(); i++) { // for all duck
             if (DuckArray.get(i).isAlive) {
-
-                for (int j = 0; j < DuckArray.size(); j++) { // for all duck
+                for (int j = 0; j < RocksArray.size(); j++) { // collision with rocks
+                    Rectangle duck = DuckArray.get(i).bounds();
+                    Rectangle rock = RocksArray.get(j).bounds();
+                    if (duck.intersects(rock)) {
+                        if(Random.chance(1,2)) {
+                            DuckArray.get(i).PosX += collide_setback;
+                            DuckArray.get(i).PosY += collide_setback;
+                        }
+                        else{
+                            DuckArray.get(i).PosX -= collide_setback;
+                            DuckArray.get(i).PosY -= collide_setback;
+                        }
+                    }
+                }
+                    for (int j = 0; j < DuckArray.size(); j++) { // collision between ducks
                     if (DuckArray.get(j).isAlive && i != j) {
                         Rectangle duck = DuckArray.get(i).bounds();
                         Rectangle otherduck = DuckArray.get(j).bounds();
                         if (duck.intersects(otherduck)) {
                             if(Random.chance(1,2)) {
-                                DuckArray.get(i).PosX += 10;
-                                DuckArray.get(j).PosX -= 10;
-                                DuckArray.get(i).PosY += 10;
-                                DuckArray.get(j).PosY -= 10;
+                                DuckArray.get(i).PosX += collide_setback;
+                                DuckArray.get(j).PosX -= collide_setback;
+                                DuckArray.get(i).PosY += collide_setback;
+                                DuckArray.get(j).PosY -= collide_setback;
                             }
                             else{
-                                DuckArray.get(i).PosX -= 10;
-                                DuckArray.get(j).PosX += 10;
-                                DuckArray.get(i).PosY -= 10;
-                                DuckArray.get(j).PosY += 10;
+                                DuckArray.get(i).PosX -= collide_setback;
+                                DuckArray.get(j).PosX += collide_setback;
+                                DuckArray.get(i).PosY -= collide_setback;
+                                DuckArray.get(j).PosY += collide_setback;
                             }
                         }
                     }

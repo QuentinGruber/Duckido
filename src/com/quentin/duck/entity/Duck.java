@@ -14,24 +14,27 @@ public class Duck {
     public int State; // (0: baby , 1: child etc..)
     public boolean isLookingRight;
     public  boolean isAlive;
+    private int NearestLily_distance;
     private int Target_posX = 0;
     private int Target_posY = 0;
-    private final int MOVE_SPEED;
+    public  int MoveSpeed;
 
     private double Weight;
     private double Critical_Weight;
     private boolean isLeader;
+    private int Leadernb;
 
     public Duck() { // Constructor
         PosX = (int) (Math.random() * ((750) + 1));
         PosY = (int) (Math.random() * ((550) + 1));
-        MOVE_SPEED = 1; // TODO: remove it DEBUG only
+        MoveSpeed = 1; // TODO: remove it DEBUG only
         Weight = 0.72 ; // Weight is in kg
         Critical_Weight = Weight / 1.2 ;
         State = 0;
         isLookingRight = true;
         isAlive = true;
         isLeader = false;
+        Leadernb = -1;
     }
 
     public void bornSound() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
@@ -80,34 +83,41 @@ public class Duck {
         else if (Weight > 1.6 && State == 2){
             Critical_Weight = Weight / 1.5;
             State = 3;
-            Whistling();
+            Whistling(Du);
             isLeader = true;
         }
     }
 
+    private void GetLeaderPos(){
+
+    }
+
     private void GoToTarget() {
 
-        if(Target_posX < PosX){
-            isLookingRight = false;
-            PosX -= MOVE_SPEED;
+        if(Leadernb != -1 && !isLeader) {
+            //NearestLily_distance
         }
-        else if (Target_posX > PosX){
-            isLookingRight = true;
-            PosX += MOVE_SPEED;
-        }
+        else{
+            if (Target_posX < PosX) {
+                isLookingRight = false;
+                PosX -= MoveSpeed;
+            } else if (Target_posX > PosX) {
+                isLookingRight = true;
+                PosX += MoveSpeed;
+            }
 
-        if(Target_posY < PosY){
-            PosY -= MOVE_SPEED;
-        }
-        else if (Target_posY > PosY){
-            PosY += MOVE_SPEED;
+            if (Target_posY < PosY) {
+                PosY -= MoveSpeed;
+            } else if (Target_posY > PosY) {
+                PosY += MoveSpeed;
+            }
         }
     }
 
     private void StationaryMove() {
-        int nb_random = (-MOVE_SPEED) + (int) (Math.random() * ((MOVE_SPEED - (-MOVE_SPEED)) + 1));
+        int nb_random = (-MoveSpeed) + (int) (Math.random() * ((MoveSpeed - (-MoveSpeed)) + 1));
         PosX += nb_random;
-        nb_random = (-MOVE_SPEED) + (int) (Math.random() * ((MOVE_SPEED - (-MOVE_SPEED)) + 1));
+        nb_random = (-MoveSpeed) + (int) (Math.random() * ((MoveSpeed - (-MoveSpeed)) + 1));
         PosY += nb_random;
     }
 
@@ -123,27 +133,27 @@ public class Duck {
         return Target_distance_x + Target_distance_y;
     }
     private void LilyHunting() {
-        ArrayList<Integer> ShortestTarget = new ArrayList<>();
-        int ShortestTarget_distance = 0;
+        ArrayList<Integer> NearestLily = new ArrayList<>();
+        NearestLily_distance = 0;
         for (int i = 0; i < Game.LilyArray.size(); i++) {
             if(!Game.LilyArray.get(i).deleted) {
-                if (ShortestTarget.size() == 0) { // if is first lily
-                    ShortestTarget.add(Game.LilyArray.get(i).PosX);
-                    ShortestTarget.add(Game.LilyArray.get(i).PosY);
-                    ShortestTarget_distance = CalculateTargetDistance(ShortestTarget.get(0), ShortestTarget.get(1));
+                if (NearestLily.size() == 0) { // if is first lily
+                    NearestLily.add(Game.LilyArray.get(i).PosX);
+                    NearestLily.add(Game.LilyArray.get(i).PosY);
+                    NearestLily_distance = CalculateTargetDistance(NearestLily.get(0), NearestLily.get(1));
                 } else {
                     int targetDistance = CalculateTargetDistance(Game.LilyArray.get(i).PosX, Game.LilyArray.get(i).PosY);
 
-                    if (ShortestTarget_distance > targetDistance) {
-                        ShortestTarget.set(0, Game.LilyArray.get(i).PosX);
-                        ShortestTarget.set(1, Game.LilyArray.get(i).PosY);
-                        ShortestTarget_distance = CalculateTargetDistance(ShortestTarget.get(0), ShortestTarget.get(1));
+                    if (NearestLily_distance > targetDistance) {
+                        NearestLily.set(0, Game.LilyArray.get(i).PosX);
+                        NearestLily.set(1, Game.LilyArray.get(i).PosY);
+                        NearestLily_distance = CalculateTargetDistance(NearestLily.get(0), NearestLily.get(1));
                     }
                 }
             }
         }
-        Target_posX = ShortestTarget.get(0);
-        Target_posY = ShortestTarget.get(1);
+        Target_posX = NearestLily.get(0);
+        Target_posY = NearestLily.get(1);
         GoToTarget();
     }
 
@@ -151,8 +161,12 @@ public class Duck {
         //TODO;
     }
 
-    private void Whistling() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+    private void Whistling(int DuckNumber) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         Sound.playSound("assets/sound/Whistling.wav");
-        //TODO;
+        for(int i = 0 ; i < Game.DuckArray.size();i++){
+            if(!Game.DuckArray.get(i).isLeader) {
+                Game.DuckArray.get(i).Leadernb = DuckNumber;
+            }
+        }
     }
 }

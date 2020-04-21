@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Duck {
+    public int index;
     public int PosX;
     public int PosY;
     public int State; // (0: baby , 1: child etc..)
@@ -83,19 +84,21 @@ public class Duck {
         else if (Weight > 1.6 && State == 2){
             Critical_Weight = Weight / 1.5;
             State = 3;
-            Whistling(Du);
+            Whistling();
             isLeader = true;
         }
     }
 
-    private void GetLeaderPos(){
 
+
+    private int GetLeaderDistance(){
+        return CalculateTargetDistance(Game.DuckArray.get(this.Leadernb).PosX, Game.DuckArray.get(this.Leadernb).PosY);
     }
 
     private void GoToTarget() {
 
-        if(Leadernb != -1 && !isLeader) {
-            //NearestLily_distance
+        if(Leadernb != -1 && !isLeader && NearestLily_distance > GetLeaderDistance()) {
+                FollowLeader();
         }
         else{
             if (Target_posX < PosX) {
@@ -157,15 +160,30 @@ public class Duck {
         GoToTarget();
     }
 
+
     private void FollowLeader() {
-        //TODO;
+        int Leader_posX = Game.DuckArray.get(this.Leadernb).PosX;
+       int Leader_posY = Game.DuckArray.get(this.Leadernb).PosY;
+        if (Leader_posX < PosX) {
+            isLookingRight = false;
+            PosX -= MoveSpeed;
+        } else if (Leader_posX > PosX) {
+            isLookingRight = true;
+            PosX += MoveSpeed;
+        }
+
+        if (Leader_posY < PosY) {
+            PosY -= MoveSpeed;
+        } else if (Leader_posY > PosY) {
+            PosY += MoveSpeed;
+        }
     }
 
-    private void Whistling(int DuckNumber) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+    private void Whistling() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         Sound.playSound("assets/sound/Whistling.wav");
         for(int i = 0 ; i < Game.DuckArray.size();i++){
-            if(!Game.DuckArray.get(i).isLeader) {
-                Game.DuckArray.get(i).Leadernb = DuckNumber;
+            if(!Game.DuckArray.get(i).isLeader && Game.DuckArray.get(i).Leadernb == -1) {
+                Game.DuckArray.get(i).Leadernb = this.index;
             }
         }
     }

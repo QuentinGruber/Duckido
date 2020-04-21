@@ -15,24 +15,24 @@ import java.util.ArrayList;
 public class Game {
     // Duck stuff
     public static int NumberOfDucks; // number of ducks currently on the simulation
-    private final int START_NUMBEROFDUCKS = 10;
-    private final int MAX_NUMBEROFDUCKS = 0;
+    private final int START_NUMBEROFDUCKS = 5;
+    private final int MAX_NUMBEROFDUCKS = 5;
     public static ArrayList<Duck> DuckArray = new ArrayList<>();
 
     // Lily stuff
     public static int NumberOfLily; // number of lily currently on the simulation
-    private final int START_NUMBEROFLILY = 150;
+    private final int START_NUMBEROFLILY = 15;
     private final int MAX_NUMBEROFLILY = 0;
 
     public static ArrayList<WaterLily> LilyArray = new ArrayList<>();
 
     // Rock stuff
     public int NumberOfRocks; // number of rocks currently on the simulation
-    private final int START_NUMBEROFROCKS = 5;
+    private final int START_NUMBEROFROCKS = 3;
     public static ArrayList<Rocks> RocksArray = new ArrayList<>();
 
     private static int count_frame;
-    private final int LILY_SPAWN_CHANCE = 500; // LILY_SPAWN_CHANCE/1000
+    private final int LILY_SPAWN_CHANCE = 1000; // LILY_SPAWN_CHANCE/1000
     private final int DUCK_BORN_CHANCE = 100; // DUCK_BORN_CHANCE/1000
 
     public Game() {
@@ -211,6 +211,7 @@ public class Game {
                // System.out.println("nouvo canard");
                 NumberOfDucks++;
                 Duck duck = new Duck();
+                duck.index = DuckArray.size();
                 DuckArray.add(duck);
                 try {
                     duck.bornSound();

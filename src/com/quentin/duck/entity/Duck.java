@@ -14,7 +14,8 @@ public class Duck {
     public int PosY;
     public int State; // (0: baby , 1: child etc..)
     public boolean isLookingRight;
-    public  boolean isAlive;
+    public boolean isAlive;
+    public boolean ForceStationary;
     private int NearestLily_distance;
     private int Target_posX = 0;
     private int Target_posY = 0;
@@ -22,7 +23,7 @@ public class Duck {
 
     private double Weight;
     private double Critical_Weight;
-    private boolean isLeader;
+    public boolean isLeader;
     private int Leadernb;
 
     public Duck() { // Constructor
@@ -32,6 +33,7 @@ public class Duck {
         Weight = 0.72 ; // Weight is in kg
         Critical_Weight = Weight / 1.2 ;
         State = 0;
+        ForceStationary = false;
         isLookingRight = true;
         isAlive = true;
         isLeader = false;
@@ -53,7 +55,7 @@ public class Duck {
 
     public void move() {
         //System.out.println(Game.NumberOfLily);
-        if (Game.NumberOfLily != 0 ) {
+        if (Game.NumberOfLily != 0 && !ForceStationary ) {
             LilyHunting();
         } else {
             StationaryMove();

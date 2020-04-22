@@ -17,8 +17,8 @@ public class Duck {
     public boolean isAlive;
     public boolean ForceStationary;
     private int NearestLily_distance;
-    private int Target_posX = 0;
-    private int Target_posY = 0;
+    public int Target_posX = 0;
+    public int Target_posY = 0;
     public  int MoveSpeed;
 
     private double Weight;
@@ -126,7 +126,7 @@ public class Duck {
         PosY += nb_random;
     }
 
-    private int CalculateTargetDistance(int x,int y){
+    public int CalculateTargetDistance(int x,int y){
         int Target_distance_x = (x - PosX);
         int Target_distance_y = (y - PosY);
         if(Target_distance_x < 0){

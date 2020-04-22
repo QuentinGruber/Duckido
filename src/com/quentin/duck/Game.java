@@ -21,18 +21,18 @@ public class Game {
 
     // Lily stuff
     public static int NumberOfLily; // number of lily currently on the simulation
-    private final int START_NUMBEROFLILY = 15;
+    private final int START_NUMBEROFLILY = 5;
     private final int MAX_NUMBEROFLILY = 0;
 
     public static ArrayList<WaterLily> LilyArray = new ArrayList<>();
 
     // Rock stuff
     public int NumberOfRocks; // number of rocks currently on the simulation
-    private final int START_NUMBEROFROCKS = 3;
+    private final int START_NUMBEROFROCKS = 2;
     public static ArrayList<Rocks> RocksArray = new ArrayList<>();
 
     private static int count_frame;
-    private final int LILY_SPAWN_CHANCE = 1000; // LILY_SPAWN_CHANCE/1000
+    private final int LILY_SPAWN_CHANCE = 500; // LILY_SPAWN_CHANCE/1000
     private final int DUCK_BORN_CHANCE = 100; // DUCK_BORN_CHANCE/1000
 
     public Game() {
@@ -85,6 +85,7 @@ public class Game {
         int collide_setback = 10;
         for (int i = 0; i < DuckArray.size(); i++) { // for all duck
             if (DuckArray.get(i).isAlive) {
+                DuckArray.get(i).ForceStationary = false;
                 for (int j = 0; j < RocksArray.size(); j++) { // collision with rocks
                     Rectangle duck = DuckArray.get(i).bounds();
                     Rectangle rock = RocksArray.get(j).bounds();
@@ -104,17 +105,32 @@ public class Game {
                         Rectangle duck = DuckArray.get(i).bounds();
                         Rectangle otherduck = DuckArray.get(j).bounds();
                         if (duck.intersects(otherduck)) {
-                            if(Random.chance(1,2)) {
-                                DuckArray.get(i).PosX += collide_setback;
-                                DuckArray.get(j).PosX -= collide_setback;
-                                DuckArray.get(i).PosY += collide_setback;
-                                DuckArray.get(j).PosY -= collide_setback;
+                            if(!DuckArray.get(i).isLeader && !DuckArray.get(j).isLeader) {
+                                if(DuckArray.get(i).CalculateTargetDistance(DuckArray.get(i).Target_posX,
+                                        DuckArray.get(i).Target_posY) < DuckArray.get(j).CalculateTargetDistance(DuckArray.get(j).Target_posX,
+                                        DuckArray.get(j).Target_posY)) {
+                                    DuckArray.get(j).ForceStationary = true;
+                                }
+                                else{
+                                    DuckArray.get(i).ForceStationary = true;
+                                }
                             }
-                            else{
-                                DuckArray.get(i).PosX -= collide_setback;
-                                DuckArray.get(j).PosX += collide_setback;
-                                DuckArray.get(i).PosY -= collide_setback;
-                                DuckArray.get(j).PosY += collide_setback;
+                            else if (!DuckArray.get(j).isLeader){
+                                DuckArray.get(j).ForceStationary = true;
+                            }
+                            else if (!DuckArray.get(i).isLeader){
+                                DuckArray.get(i).ForceStationary = true;
+                            }
+                            else
+                            {
+                                if(DuckArray.get(i).CalculateTargetDistance(DuckArray.get(i).Target_posX,
+                                        DuckArray.get(i).Target_posY) < DuckArray.get(j).CalculateTargetDistance(DuckArray.get(j).Target_posX,
+                                        DuckArray.get(j).Target_posY)) {
+                                    DuckArray.get(j).ForceStationary = true;
+                                }
+                                else{
+                                    DuckArray.get(i).ForceStationary = true;
+                                }
                             }
                         }
                     }

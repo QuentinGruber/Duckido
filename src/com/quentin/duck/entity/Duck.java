@@ -96,19 +96,7 @@ public class Duck {
         if (Leadernb != -1 && !isLeader && NearestLily_distance > GetLeaderDistance()) {
             FollowLeader();
         } else {
-            if (Target_posX < PosX) {
-                isLookingRight = false;
-                PosX -= MoveSpeed;
-            } else if (Target_posX > PosX) {
-                isLookingRight = true;
-                PosX += MoveSpeed;
-            }
-
-            if (Target_posY < PosY) {
-                PosY -= MoveSpeed;
-            } else if (Target_posY > PosY) {
-                PosY += MoveSpeed;
-            }
+            GoTo(Target_posX, Target_posY);
         }
     }
 
@@ -160,17 +148,21 @@ public class Duck {
     private void FollowLeader() {
         int Leader_posX = Game.DuckArray.get(this.Leadernb).PosX;
         int Leader_posY = Game.DuckArray.get(this.Leadernb).PosY;
-        if (Leader_posX < PosX) {
+        GoTo(Leader_posX, Leader_posY);
+    }
+
+    private void GoTo(int target_PosX, int target_PosY) {
+        if (target_PosX < PosX) {
             isLookingRight = false;
             PosX -= MoveSpeed;
-        } else if (Leader_posX > PosX) {
+        } else if (target_PosX > PosX) {
             isLookingRight = true;
             PosX += MoveSpeed;
         }
 
-        if (Leader_posY < PosY) {
+        if (target_PosY < PosY) {
             PosY -= MoveSpeed;
-        } else if (Leader_posY > PosY) {
+        } else if (target_PosY > PosY) {
             PosY += MoveSpeed;
         }
     }

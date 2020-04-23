@@ -35,30 +35,15 @@ public class Game {
         // create starting object
 
         if (START_NUMBEROFDUCKS > 0) {
-            Thread Add_START_NUMBEROFDUCKS = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    AddDuck(START_NUMBEROFDUCKS);
-                }
-            });
+            Thread Add_START_NUMBEROFDUCKS = new Thread(() -> AddDuck(START_NUMBEROFDUCKS));
             Add_START_NUMBEROFDUCKS.start();
         }
         if (START_NUMBEROFLILY > 0) {
-            Thread Add_START_NUMBEROFLILY = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    AddLily(START_NUMBEROFLILY);
-                }
-            });
+            Thread Add_START_NUMBEROFLILY = new Thread(() -> AddLily(START_NUMBEROFLILY));
             Add_START_NUMBEROFLILY.start();
         }
         if (START_NUMBEROFROCKS > 0) {
-            Thread Add_START_NUMBEROFROCKS = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    AddRocks(START_NUMBEROFROCKS);
-                }
-            });
+            Thread Add_START_NUMBEROFROCKS = new Thread(() -> AddRocks(START_NUMBEROFROCKS));
             Add_START_NUMBEROFROCKS.start();
         }
 
@@ -133,14 +118,11 @@ public class Game {
                                 NumberOfLily--;
                                 LilyArray.get(j).deleted = true;
                                 int finalI = i;
-                                Thread eating = new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        try {
-                                            DuckArray.get(finalI).Eat();
-                                        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-                                            e.printStackTrace();
-                                        }
+                                Thread eating = new Thread(() -> {
+                                    try {
+                                        DuckArray.get(finalI).Eat();
+                                    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+                                        e.printStackTrace();
                                     }
                                 });
                                 eating.start();
@@ -153,16 +135,13 @@ public class Game {
     }
 
     public void DuckWeightSystem() { // execute move() of all ducks
-        Thread DuckWeightSystem = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < DuckArray.size(); i++) { // draw all ducks
-                    if (DuckArray.get(i).isAlive) {
-                        try {
-                            DuckArray.get(i).Check_Weight();
-                        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-                            e.printStackTrace();
-                        }
+        Thread DuckWeightSystem = new Thread(() -> {
+            for (int i = 0; i < DuckArray.size(); i++) { // draw all ducks
+                if (DuckArray.get(i).isAlive) {
+                    try {
+                        DuckArray.get(i).Check_Weight();
+                    } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+                        e.printStackTrace();
                     }
                 }
             }
@@ -171,13 +150,10 @@ public class Game {
     }
 
     public void DuckMoveSystem() { // execute move() of all ducks
-        Thread DuckMoveSystem = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < DuckArray.size(); i++) { // draw all ducks
-                    if (DuckArray.get(i).isAlive) {
-                        DuckArray.get(i).move();
-                    }
+        Thread DuckMoveSystem = new Thread(() -> {
+            for (int i = 0; i < DuckArray.size(); i++) { // draw all ducks
+                if (DuckArray.get(i).isAlive) {
+                    DuckArray.get(i).move();
                 }
             }
         });
@@ -186,12 +162,7 @@ public class Game {
 
     public void DuckBornSystem() {
         if (Random.chance(DUCK_BORN_CHANCE, 1000)) {
-            Thread DuckBornSystem = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    AddDuck(1);
-                }
-            });
+            Thread DuckBornSystem = new Thread(() -> AddDuck(1));
             DuckBornSystem.start();
         }
     }
@@ -199,12 +170,7 @@ public class Game {
     public void LilySpawnSystem() {
 
         if (Random.chance(LILY_SPAWN_CHANCE, 1000)) {
-            Thread LilySpawnSystem = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    AddLily(1);
-                }
-            });
+            Thread LilySpawnSystem = new Thread(() -> AddLily(1));
             LilySpawnSystem.start();
         }
     }
@@ -212,7 +178,6 @@ public class Game {
     private void AddDuck(int nb) {
         if (MAX_NUMBEROFDUCKS == 0 || MAX_NUMBEROFDUCKS > NumberOfDucks)
             for (int i = 0; i < nb; i++) {
-                // System.out.println("nouvo canard");
                 NumberOfDucks++;
                 Duck duck = new Duck();
                 duck.index = DuckArray.size();
@@ -228,7 +193,6 @@ public class Game {
     private void AddLily(int nb) {
         if (MAX_NUMBEROFLILY == 0 || MAX_NUMBEROFLILY > NumberOfLily) {
             for (int i = 0; i < nb; i++) {
-                //  System.out.println("nouvo lily");
                 NumberOfLily++;
                 LilyArray.add(new WaterLily());
             }
@@ -237,7 +201,6 @@ public class Game {
 
     private void AddRocks(int nb) {
         for (int i = 0; i < nb; i++) {
-            // System.out.println("nouvo cailloux");
             NumberOfRocks++;
             RocksArray.add(new Rocks());
         }

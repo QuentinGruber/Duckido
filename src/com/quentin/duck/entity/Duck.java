@@ -68,7 +68,6 @@ public class Duck {
 
     public void Check_Weight() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         Weight -= 0.005; // lose every fixed time
-        //System.out.println(Weight);
         if (Weight < Critical_Weight) {
             isAlive = false;
             Game.NumberOfDucks--;

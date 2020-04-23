@@ -27,7 +27,6 @@ public class FpsCounter implements ActionListener {
     private void ResetCalls() {
         FpsLastSecond = Calls;
         Calls = 0;
-
     }
 
     @Override

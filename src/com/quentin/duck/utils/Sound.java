@@ -7,7 +7,6 @@ import java.io.IOException;
 public class Sound {
 
 
-
     public static void playSound(String soundFile) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         File f = new File("./" + soundFile);
         AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());

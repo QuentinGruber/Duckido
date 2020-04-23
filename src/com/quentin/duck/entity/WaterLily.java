@@ -1,7 +1,5 @@
 package com.quentin.duck.entity;
 
-import com.quentin.duck.Game;
-
 import java.awt.*;
 
 public class WaterLily {
@@ -16,6 +14,6 @@ public class WaterLily {
     }
 
     public Rectangle bounds() {
-        return (new Rectangle(PosX,PosY,20,20));
+        return (new Rectangle(PosX, PosY, 20, 20));
     } // lower bounds to make the eating visual process better
 }

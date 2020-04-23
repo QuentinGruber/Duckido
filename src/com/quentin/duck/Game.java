@@ -4,7 +4,6 @@ import com.quentin.duck.entity.Duck;
 import com.quentin.duck.entity.Rocks;
 import com.quentin.duck.entity.WaterLily;
 import com.quentin.duck.utils.Random;
-import org.w3c.dom.css.Rect;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -15,25 +14,21 @@ import java.util.ArrayList;
 public class Game {
     // Duck stuff
     public static int NumberOfDucks; // number of ducks currently on the simulation
-    private final int START_NUMBEROFDUCKS = 5;
-    private final int MAX_NUMBEROFDUCKS = 5;
     public static ArrayList<Duck> DuckArray = new ArrayList<>();
-
     // Lily stuff
     public static int NumberOfLily; // number of lily currently on the simulation
+    public static ArrayList<WaterLily> LilyArray = new ArrayList<>();
+    public static ArrayList<Rocks> RocksArray = new ArrayList<>();
+    private static int count_frame;
+    private final int START_NUMBEROFDUCKS = 5;
+    private final int MAX_NUMBEROFDUCKS = 5;
     private final int START_NUMBEROFLILY = 5;
     private final int MAX_NUMBEROFLILY = 0;
-
-    public static ArrayList<WaterLily> LilyArray = new ArrayList<>();
-
-    // Rock stuff
-    public int NumberOfRocks; // number of rocks currently on the simulation
     private final int START_NUMBEROFROCKS = 2;
-    public static ArrayList<Rocks> RocksArray = new ArrayList<>();
-
-    private static int count_frame;
     private final int LILY_SPAWN_CHANCE = 500; // LILY_SPAWN_CHANCE/1000
     private final int DUCK_BORN_CHANCE = 100; // DUCK_BORN_CHANCE/1000
+    // Rock stuff
+    public int NumberOfRocks; // number of rocks currently on the simulation
 
     public Game() {
 
@@ -70,8 +65,8 @@ public class Game {
     }
 
     public void MainLoop() {
-        count_frame ++;
-        if(count_frame > GamePanel.MaxFPS){
+        count_frame++;
+        if (count_frame > GamePanel.MaxFPS) {
             count_frame = 0;
             DuckBornSystem();
             LilySpawnSystem();
@@ -81,7 +76,7 @@ public class Game {
         CheckCollid();
     }
 
-    public void CheckCollid(){
+    public void CheckCollid() {
         int collide_setback = 20;
         for (int i = 0; i < DuckArray.size(); i++) { // for all duck
             if (DuckArray.get(i).isAlive) {
@@ -90,45 +85,38 @@ public class Game {
                     Rectangle duck = DuckArray.get(i).bounds();
                     Rectangle rock = RocksArray.get(j).bounds();
                     if (duck.intersects(rock)) {
-                        if(DuckArray.get(i).Target_posX < DuckArray.get(i).PosX) {
+                        if (DuckArray.get(i).Target_posX < DuckArray.get(i).PosX) {
                             DuckArray.get(i).PosX += collide_setback;
-                            DuckArray.get(i).PosY += collide_setback*2;
-                        }
-                        else{
+                            DuckArray.get(i).PosY += collide_setback * 2;
+                        } else {
                             DuckArray.get(i).PosX -= collide_setback;
-                            DuckArray.get(i).PosY -= collide_setback*2;
+                            DuckArray.get(i).PosY -= collide_setback * 2;
                         }
                     }
                 }
-                    for (int j = 0; j < DuckArray.size(); j++) { // collision between ducks
+                for (int j = 0; j < DuckArray.size(); j++) { // collision between ducks
                     if (DuckArray.get(j).isAlive && i != j) {
                         Rectangle duck = DuckArray.get(i).bounds();
                         Rectangle otherduck = DuckArray.get(j).bounds();
                         if (duck.intersects(otherduck)) {
-                            if(!DuckArray.get(i).isLeader && !DuckArray.get(j).isLeader) {
-                                if(DuckArray.get(i).CalculateTargetDistance(DuckArray.get(i).Target_posX,
+                            if (!DuckArray.get(i).isLeader && !DuckArray.get(j).isLeader) {
+                                if (DuckArray.get(i).CalculateTargetDistance(DuckArray.get(i).Target_posX,
                                         DuckArray.get(i).Target_posY) < DuckArray.get(j).CalculateTargetDistance(DuckArray.get(j).Target_posX,
                                         DuckArray.get(j).Target_posY)) {
                                     DuckArray.get(j).ForceStationary = true;
-                                }
-                                else{
+                                } else {
                                     DuckArray.get(i).ForceStationary = true;
                                 }
-                            }
-                            else if (!DuckArray.get(j).isLeader){
+                            } else if (!DuckArray.get(j).isLeader) {
                                 DuckArray.get(j).ForceStationary = true;
-                            }
-                            else if (!DuckArray.get(i).isLeader){
+                            } else if (!DuckArray.get(i).isLeader) {
                                 DuckArray.get(i).ForceStationary = true;
-                            }
-                            else
-                            {
-                                if(DuckArray.get(i).CalculateTargetDistance(DuckArray.get(i).Target_posX,
+                            } else {
+                                if (DuckArray.get(i).CalculateTargetDistance(DuckArray.get(i).Target_posX,
                                         DuckArray.get(i).Target_posY) < DuckArray.get(j).CalculateTargetDistance(DuckArray.get(j).Target_posX,
                                         DuckArray.get(j).Target_posY)) {
                                     DuckArray.get(j).ForceStationary = true;
-                                }
-                                else{
+                                } else {
                                     DuckArray.get(i).ForceStationary = true;
                                 }
                             }
@@ -169,7 +157,7 @@ public class Game {
             @Override
             public void run() {
                 for (int i = 0; i < DuckArray.size(); i++) { // draw all ducks
-                    if(DuckArray.get(i).isAlive) {
+                    if (DuckArray.get(i).isAlive) {
                         try {
                             DuckArray.get(i).Check_Weight();
                         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
@@ -187,7 +175,7 @@ public class Game {
             @Override
             public void run() {
                 for (int i = 0; i < DuckArray.size(); i++) { // draw all ducks
-                    if(DuckArray.get(i).isAlive) {
+                    if (DuckArray.get(i).isAlive) {
                         DuckArray.get(i).move();
                     }
                 }
@@ -224,7 +212,7 @@ public class Game {
     private void AddDuck(int nb) {
         if (MAX_NUMBEROFDUCKS == 0 || MAX_NUMBEROFDUCKS > NumberOfDucks)
             for (int i = 0; i < nb; i++) {
-               // System.out.println("nouvo canard");
+                // System.out.println("nouvo canard");
                 NumberOfDucks++;
                 Duck duck = new Duck();
                 duck.index = DuckArray.size();
@@ -240,7 +228,7 @@ public class Game {
     private void AddLily(int nb) {
         if (MAX_NUMBEROFLILY == 0 || MAX_NUMBEROFLILY > NumberOfLily) {
             for (int i = 0; i < nb; i++) {
-              //  System.out.println("nouvo lily");
+                //  System.out.println("nouvo lily");
                 NumberOfLily++;
                 LilyArray.add(new WaterLily());
             }
@@ -249,7 +237,7 @@ public class Game {
 
     private void AddRocks(int nb) {
         for (int i = 0; i < nb; i++) {
-           // System.out.println("nouvo cailloux");
+            // System.out.println("nouvo cailloux");
             NumberOfRocks++;
             RocksArray.add(new Rocks());
         }

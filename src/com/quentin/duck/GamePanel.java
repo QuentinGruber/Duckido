@@ -18,6 +18,7 @@ public class GamePanel extends JPanel implements ActionListener {
     FpsCounter fpsCounter;
     Draw draw;
     Timer timer;
+
     public GamePanel(int width, int height) {
         setPreferredSize(new Dimension(width, height));
         setFocusable(true);
@@ -41,13 +42,13 @@ public class GamePanel extends JPanel implements ActionListener {
         }
 
         for (int i = 0; i < com.quentin.duck.Game.LilyArray.size(); i++) { // draw all waterlily
-            if(!com.quentin.duck.Game.LilyArray.get(i).deleted){
+            if (!com.quentin.duck.Game.LilyArray.get(i).deleted) {
                 draw.waterLily(g, this, com.quentin.duck.Game.LilyArray.get(i).PosX, com.quentin.duck.Game.LilyArray.get(i).PosY);
             }
         }
 
         for (int i = 0; i < com.quentin.duck.Game.DuckArray.size(); i++) { // draw all ducks
-            if(com.quentin.duck.Game.DuckArray.get(i).isAlive) {
+            if (com.quentin.duck.Game.DuckArray.get(i).isAlive) {
                 draw.duck(g, this, com.quentin.duck.Game.DuckArray.get(i).PosX,
                         com.quentin.duck.Game.DuckArray.get(i).PosY, com.quentin.duck.Game.DuckArray.get(i).State,
                         com.quentin.duck.Game.DuckArray.get(i).isLookingRight);

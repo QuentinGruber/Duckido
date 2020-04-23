@@ -9,22 +9,22 @@ public class FpsCounter implements ActionListener {
     int Calls;
     int FpsLastSecond;
 
-    public FpsCounter(){
+    public FpsCounter() {
         Timer timer = new Timer(1000, this);
         timer.start();
         Calls = 0;
         FpsLastSecond = 0;
     }
 
-    public void AddCalls(){
+    public void AddCalls() {
         Calls++;
     }
 
-    public int GetFPS(){
+    public int GetFPS() {
         return FpsLastSecond;
     }
 
-    private void ResetCalls(){
+    private void ResetCalls() {
         FpsLastSecond = Calls;
         Calls = 0;
 
@@ -33,7 +33,7 @@ public class FpsCounter implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         ResetCalls();
-        if(FpsLastSecond != 0) {
+        if (FpsLastSecond != 0) {
             System.out.println("FPS:" + GetFPS());
         }
     }

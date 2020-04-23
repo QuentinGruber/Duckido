@@ -82,7 +82,7 @@ public class Game {
     }
 
     public void CheckCollid(){
-        int collide_setback = 10;
+        int collide_setback = 20;
         for (int i = 0; i < DuckArray.size(); i++) { // for all duck
             if (DuckArray.get(i).isAlive) {
                 DuckArray.get(i).ForceStationary = false;
@@ -90,13 +90,13 @@ public class Game {
                     Rectangle duck = DuckArray.get(i).bounds();
                     Rectangle rock = RocksArray.get(j).bounds();
                     if (duck.intersects(rock)) {
-                        if(Random.chance(1,2)) {
+                        if(DuckArray.get(i).Target_posX < DuckArray.get(i).PosX) {
                             DuckArray.get(i).PosX += collide_setback;
-                            DuckArray.get(i).PosY += collide_setback;
+                            DuckArray.get(i).PosY += collide_setback*2;
                         }
                         else{
                             DuckArray.get(i).PosX -= collide_setback;
-                            DuckArray.get(i).PosY -= collide_setback;
+                            DuckArray.get(i).PosY -= collide_setback*2;
                         }
                     }
                 }

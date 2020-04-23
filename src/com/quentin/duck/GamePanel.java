@@ -12,12 +12,12 @@ import java.awt.event.ActionListener;
 public class GamePanel extends JPanel implements ActionListener {
 
 
-    public static Game Game = new Game();
+    public static final Game Game = new Game();
     public static int MaxFPS;
     public static int CurrentFPS;
-    FpsCounter fpsCounter;
-    Draw draw;
-    Timer timer;
+    final FpsCounter fpsCounter;
+    final Draw draw;
+    final Timer timer;
 
     public GamePanel(int width, int height) {
         setPreferredSize(new Dimension(width, height));

@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class GameWindow extends JFrame {
-    Image img = ImageIO.read(new File("assets/icon.png"));
+    final Image img = ImageIO.read(new File("assets/icon.png"));
 
     public GameWindow() throws IOException {
         setTitle("Duckido");

@@ -19,7 +19,7 @@ public class Duck {
     public boolean ForceStationary;
     public int Target_posX = 0;
     public int Target_posY = 0;
-    public int MoveSpeed;
+    public final int MoveSpeed;
     public boolean isLeader;
     private int NearestLily_distance;
     private double Weight;

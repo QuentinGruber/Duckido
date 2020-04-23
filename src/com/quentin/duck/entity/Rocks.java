@@ -3,8 +3,8 @@ package com.quentin.duck.entity;
 import java.awt.*;
 
 public class Rocks {
-    public int PosX;
-    public int PosY;
+    public final int PosX;
+    public final int PosY;
 
     public Rocks() { // Constructor
         PosX = (int) (Math.random() * ((750) + 1));

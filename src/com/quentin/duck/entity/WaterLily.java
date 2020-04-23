@@ -3,8 +3,8 @@ package com.quentin.duck.entity;
 import java.awt.*;
 
 public class WaterLily {
-    public int PosX;
-    public int PosY;
+    public final int PosX;
+    public final int PosY;
     public boolean deleted;
 
     public WaterLily() { // Constructor

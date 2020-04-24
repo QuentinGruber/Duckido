@@ -85,25 +85,13 @@ public class Game {
                         Rectangle otherduck = DuckArray.get(j).bounds();
                         if (duck.intersects(otherduck)) {
                             if (!DuckArray.get(i).isLeader && !DuckArray.get(j).isLeader) {
-                                if (DuckArray.get(i).CalculateTargetDistance(DuckArray.get(i).Target_posX,
-                                        DuckArray.get(i).Target_posY) < DuckArray.get(j).CalculateTargetDistance(DuckArray.get(j).Target_posX,
-                                        DuckArray.get(j).Target_posY)) {
-                                    DuckArray.get(j).ForceStationary = true;
-                                } else {
-                                    DuckArray.get(i).ForceStationary = true;
-                                }
+                                check_duck_priority(i, j);
                             } else if (!DuckArray.get(j).isLeader) {
                                 DuckArray.get(j).ForceStationary = true;
                             } else if (!DuckArray.get(i).isLeader) {
                                 DuckArray.get(i).ForceStationary = true;
                             } else {
-                                if (DuckArray.get(i).CalculateTargetDistance(DuckArray.get(i).Target_posX,
-                                        DuckArray.get(i).Target_posY) < DuckArray.get(j).CalculateTargetDistance(DuckArray.get(j).Target_posX,
-                                        DuckArray.get(j).Target_posY)) {
-                                    DuckArray.get(j).ForceStationary = true;
-                                } else {
-                                    DuckArray.get(i).ForceStationary = true;
-                                }
+                                check_duck_priority(i, j);
                             }
                         }
                     }
@@ -131,6 +119,16 @@ public class Game {
                     }
                 }
             }
+        }
+    }
+
+    private void check_duck_priority(int i, int j) {
+        if (DuckArray.get(i).CalculateTargetDistance(DuckArray.get(i).Target_posX,
+                DuckArray.get(i).Target_posY) < DuckArray.get(j).CalculateTargetDistance(DuckArray.get(j).Target_posX,
+                DuckArray.get(j).Target_posY)) {
+            DuckArray.get(j).ForceStationary = true;
+        } else {
+            DuckArray.get(i).ForceStationary = true;
         }
     }
 

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Duck {
+    public final int MoveSpeed;
     public int index;
     public int PosX;
     public int PosY;
@@ -19,7 +20,6 @@ public class Duck {
     public boolean ForceStationary;
     public int Target_posX = 0;
     public int Target_posY = 0;
-    public final int MoveSpeed;
     public boolean isLeader;
     private int NearestLily_distance;
     private double Weight;

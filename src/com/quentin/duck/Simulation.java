@@ -27,11 +27,11 @@ public class Simulation {
     /// Number of frames (used to call random stuff only once per maxfps so that the randomness is not affected by the performance of the simulation)
     private static int count_frame;
     /// Number of ducks at the beginning of the simulation
-    private final int START_NUMBEROFDUCKS = 5;
+    private final int START_NUMBEROFDUCKS = 2;
     /// Max number of ducks in the simulation
-    private final int MAX_NUMBEROFDUCKS = 5;
+    private final int MAX_NUMBEROFDUCKS = 25;
     ///  Number of waterlily at the beginning of the simulation
-    private final int START_NUMBEROFLILY = 5;
+    private final int START_NUMBEROFLILY = 1;
     /// Max number of waterlily in the simulation
     private final int MAX_NUMBEROFLILY = 0;
     ///  Number of rocks at the beginning of the simulation

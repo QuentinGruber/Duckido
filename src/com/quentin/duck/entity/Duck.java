@@ -1,6 +1,6 @@
 package com.quentin.duck.entity;
 
-import com.quentin.duck.Game;
+import com.quentin.duck.Simulation;
 import com.quentin.duck.utils.Sound;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -73,7 +73,7 @@ public class Duck {
 
     public void move() {
         /// Make the duck move
-        if (Game.NumberOfLily != 0 && !ForceStationary) {
+        if (Simulation.NumberOfLily != 0 && !ForceStationary) {
             LilyHunting();
         } else {
             StationaryMove();
@@ -92,7 +92,7 @@ public class Duck {
         Weight -= 0.005; // lose every fixed time
         if (Weight < Critical_Weight) { /// If his weight is lower than his critical weight the duck die
             isAlive = false;
-            Game.NumberOfDucks--;
+            Simulation.NumberOfDucks--;
             Sound.playSound("assets/sound/dead.wav");
         }
         /// If its weight is sufficient then the duck will grow up
@@ -113,7 +113,7 @@ public class Duck {
 
     private int GetLeaderDistance() {
         /// return distance between the duck current leader and the duck current position
-        return CalculateTargetDistance(Game.DuckArray.get(this.Leadernb).PosX, Game.DuckArray.get(this.Leadernb).PosY);
+        return CalculateTargetDistance(Simulation.DuckArray.get(this.Leadernb).PosX, Simulation.DuckArray.get(this.Leadernb).PosY);
     }
 
     private void GoToTarget() {
@@ -150,18 +150,18 @@ public class Duck {
         /// Calculates which water lily is closest to the duck and defines it as a target.
         ArrayList<Integer> NearestLily = new ArrayList<>();
         NearestLily_distance = 0;
-        for (int i = 0; i < Game.LilyArray.size(); i++) {
-            if (!Game.LilyArray.get(i).deleted) {
+        for (int i = 0; i < Simulation.LilyArray.size(); i++) {
+            if (!Simulation.LilyArray.get(i).deleted) {
                 if (NearestLily.size() == 0) { // if is first lily
-                    NearestLily.add(Game.LilyArray.get(i).PosX);
-                    NearestLily.add(Game.LilyArray.get(i).PosY);
+                    NearestLily.add(Simulation.LilyArray.get(i).PosX);
+                    NearestLily.add(Simulation.LilyArray.get(i).PosY);
                     NearestLily_distance = CalculateTargetDistance(NearestLily.get(0), NearestLily.get(1));
                 } else {
-                    int targetDistance = CalculateTargetDistance(Game.LilyArray.get(i).PosX, Game.LilyArray.get(i).PosY);
+                    int targetDistance = CalculateTargetDistance(Simulation.LilyArray.get(i).PosX, Simulation.LilyArray.get(i).PosY);
 
                     if (NearestLily_distance > targetDistance) {
-                        NearestLily.set(0, Game.LilyArray.get(i).PosX);
-                        NearestLily.set(1, Game.LilyArray.get(i).PosY);
+                        NearestLily.set(0, Simulation.LilyArray.get(i).PosX);
+                        NearestLily.set(1, Simulation.LilyArray.get(i).PosY);
                         NearestLily_distance = CalculateTargetDistance(NearestLily.get(0), NearestLily.get(1));
                     }
                 }
@@ -175,8 +175,8 @@ public class Duck {
 
     private void FollowLeader() {
         /// Make the duck follow his leader
-        int Leader_posX = Game.DuckArray.get(this.Leadernb).PosX;
-        int Leader_posY = Game.DuckArray.get(this.Leadernb).PosY;
+        int Leader_posX = Simulation.DuckArray.get(this.Leadernb).PosX;
+        int Leader_posY = Simulation.DuckArray.get(this.Leadernb).PosY;
         GoTo(Leader_posX, Leader_posY);
     }
 
@@ -200,9 +200,9 @@ public class Duck {
     private void Whistling() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         /// Play the Whistling sound & make the current duck the leader of all other duck in the pond
         Sound.playSound("assets/sound/Whistling.wav");
-        for (int i = 0; i < Game.DuckArray.size(); i++) {
-            if (!Game.DuckArray.get(i).isLeader && Game.DuckArray.get(i).Leadernb == -1) {
-                Game.DuckArray.get(i).Leadernb = this.index;
+        for (int i = 0; i < Simulation.DuckArray.size(); i++) {
+            if (!Simulation.DuckArray.get(i).isLeader && Simulation.DuckArray.get(i).Leadernb == -1) {
+                Simulation.DuckArray.get(i).Leadernb = this.index;
             }
         }
     }

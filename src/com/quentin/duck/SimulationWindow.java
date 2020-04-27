@@ -6,14 +6,14 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class GameWindow extends JFrame {
+public class SimulationWindow extends JFrame {
     final Image img = ImageIO.read(new File("assets/icon.png"));
 
-    public GameWindow() throws IOException {
+    public SimulationWindow() throws IOException {
         /// Create simulation windows
         setTitle("Duckido");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setContentPane(new GamePanel(800, 600));
+        setContentPane(new SimulationPanel(800, 600));
         pack();
         setResizable(false);
         setLocationRelativeTo(null);

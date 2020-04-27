@@ -9,10 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class GamePanel extends JPanel implements ActionListener {
+public class SimulationPanel extends JPanel implements ActionListener {
 
     /// Create a new simulation
-    public static final Game Game = new Game();
+    public static final Simulation simulation = new Simulation();
     /// Defines the maximum display update rate per second.
     public static int MaxFPS;
     /// Current frame per second
@@ -24,7 +24,7 @@ public class GamePanel extends JPanel implements ActionListener {
     /// Init timer
     final Timer timer;
 
-    public GamePanel(int width, int height) {
+    public SimulationPanel(int width, int height) {
         /// Create Simulation Panel
         setPreferredSize(new Dimension(width, height));
         setFocusable(true);
@@ -44,21 +44,21 @@ public class GamePanel extends JPanel implements ActionListener {
 
         draw.background(g, this);
 
-        for (int i = 0; i < Game.NumberOfRocks; i++) { // draw all rocks
-            draw.rock(g, this, com.quentin.duck.Game.RocksArray.get(i).PosX, com.quentin.duck.Game.RocksArray.get(i).PosY);
+        for (int i = 0; i < simulation.NumberOfRocks; i++) { // draw all rocks
+            draw.rock(g, this, Simulation.RocksArray.get(i).PosX, Simulation.RocksArray.get(i).PosY);
         }
 
-        for (int i = 0; i < com.quentin.duck.Game.LilyArray.size(); i++) { // draw all waterlily
-            if (!com.quentin.duck.Game.LilyArray.get(i).deleted) {
-                draw.waterLily(g, this, com.quentin.duck.Game.LilyArray.get(i).PosX, com.quentin.duck.Game.LilyArray.get(i).PosY);
+        for (int i = 0; i < Simulation.LilyArray.size(); i++) { // draw all waterlily
+            if (!Simulation.LilyArray.get(i).deleted) {
+                draw.waterLily(g, this, Simulation.LilyArray.get(i).PosX, Simulation.LilyArray.get(i).PosY);
             }
         }
 
-        for (int i = 0; i < com.quentin.duck.Game.DuckArray.size(); i++) { // draw all ducks
-            if (com.quentin.duck.Game.DuckArray.get(i).isAlive) {
-                draw.duck(g, this, com.quentin.duck.Game.DuckArray.get(i).PosX,
-                        com.quentin.duck.Game.DuckArray.get(i).PosY, com.quentin.duck.Game.DuckArray.get(i).State,
-                        com.quentin.duck.Game.DuckArray.get(i).isLookingRight);
+        for (int i = 0; i < Simulation.DuckArray.size(); i++) { // draw all ducks
+            if (Simulation.DuckArray.get(i).isAlive) {
+                draw.duck(g, this, Simulation.DuckArray.get(i).PosX,
+                        Simulation.DuckArray.get(i).PosY, Simulation.DuckArray.get(i).State,
+                        Simulation.DuckArray.get(i).isLookingRight);
             }
         }
 
@@ -74,7 +74,7 @@ public class GamePanel extends JPanel implements ActionListener {
         CurrentFPS = fpsCounter.GetFPS();
 
         // Run main loop
-        Game.MainLoop();
+        simulation.MainLoop();
         repaint(); // and repaint all element
     }
 

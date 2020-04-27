@@ -11,7 +11,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Game {
+public class Simulation {
     // Duck stuff
     /// Number of ducks currently on the simulation
     public static int NumberOfDucks;
@@ -44,7 +44,7 @@ public class Game {
     /// Number of rocks currently on the simulation
     public int NumberOfRocks;
 
-    public Game() {
+    public Simulation() {
     
 
         /// Create starting object
@@ -67,7 +67,7 @@ public class Game {
     public void MainLoop() {
         /// Main loop of the simulation
         count_frame++;
-        if (count_frame > GamePanel.MaxFPS) {
+        if (count_frame > SimulationPanel.MaxFPS) {
             count_frame = 0;
             DuckBornSystem();
             LilySpawnSystem();

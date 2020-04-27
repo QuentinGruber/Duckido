@@ -13,22 +13,36 @@ import java.util.ArrayList;
 
 public class Game {
     // Duck stuff
-    public static int NumberOfDucks; // number of ducks currently on the simulation
+    /// Number of ducks currently on the simulation
+    public static int NumberOfDucks;
+    /// Array that contain all duck object in the simulation
     public static ArrayList<Duck> DuckArray = new ArrayList<>();
     // Lily stuff
+    /// Number of Lily currently on the simulation
     public static int NumberOfLily; // number of lily currently on the simulation
+    /// Array that contain all WaterLily object in the simulation
     public static ArrayList<WaterLily> LilyArray = new ArrayList<>();
+    /// Array that contain all Rocks object in the simulation
     public static ArrayList<Rocks> RocksArray = new ArrayList<>();
+    /// Number of frames (used to call random stuff only once per maxfps so that the randomness is not affected by the performance of the simulation)
     private static int count_frame;
+    /// Number of ducks at the beginning of the simulation
     private final int START_NUMBEROFDUCKS = 5;
+    /// Max number of ducks in the simulation
     private final int MAX_NUMBEROFDUCKS = 5;
+    ///  Number of waterlily at the beginning of the simulation
     private final int START_NUMBEROFLILY = 5;
+    /// Max number of waterlily in the simulation
     private final int MAX_NUMBEROFLILY = 0;
+    ///  Number of rocks at the beginning of the simulation
     private final int START_NUMBEROFROCKS = 2;
+    /// Chance for a lily to spawn every 1 second (LILY_SPAWN_CHANCE/1000)
     private final int LILY_SPAWN_CHANCE = 500; // LILY_SPAWN_CHANCE/1000
+    /// Chance for a duck to spawn every 1 second (DUCK_BORN_CHANCE/1000)
     private final int DUCK_BORN_CHANCE = 100; // DUCK_BORN_CHANCE/1000
     // Rock stuff
-    public int NumberOfRocks; // number of rocks currently on the simulation
+    /// Number of rocks currently on the simulation
+    public int NumberOfRocks;
 
     public Game() {
 
@@ -50,6 +64,7 @@ public class Game {
     }
 
     public void MainLoop() {
+        /// Main loop of the simulation
         count_frame++;
         if (count_frame > GamePanel.MaxFPS) {
             count_frame = 0;
@@ -62,6 +77,7 @@ public class Game {
     }
 
     public void CheckCollid() {
+        /// Check collision of all element in the simulation
         int collide_setback = 20;
         for (int i = 0; i < DuckArray.size(); i++) { // for all duck
             if (DuckArray.get(i).isAlive) {
@@ -123,6 +139,7 @@ public class Game {
     }
 
     private void check_duck_priority(int i, int j) {
+        /// Called after the collision of two ducks, calculate which one is closest to its target to give it priority.
         if (DuckArray.get(i).CalculateTargetDistance(DuckArray.get(i).Target_posX,
                 DuckArray.get(i).Target_posY) < DuckArray.get(j).CalculateTargetDistance(DuckArray.get(j).Target_posX,
                 DuckArray.get(j).Target_posY)) {
@@ -132,7 +149,8 @@ public class Game {
         }
     }
 
-    public void DuckWeightSystem() { // execute move() of all ducks
+    public void DuckWeightSystem() {
+        /// Check Weight of all ducks
         Thread DuckWeightSystem = new Thread(() -> {
             for (int i = 0; i < DuckArray.size(); i++) { // draw all ducks
                 if (DuckArray.get(i).isAlive) {
@@ -148,6 +166,7 @@ public class Game {
     }
 
     public void DuckMoveSystem() { // execute move() of all ducks
+        /// Make all ducks move
         Thread DuckMoveSystem = new Thread(() -> {
             for (int i = 0; i < DuckArray.size(); i++) { // draw all ducks
                 if (DuckArray.get(i).isAlive) {
@@ -159,6 +178,7 @@ public class Game {
     }
 
     public void DuckBornSystem() {
+        /// Randomly spawn a new duck
         if (Random.chance(DUCK_BORN_CHANCE, 1000)) {
             Thread DuckBornSystem = new Thread(() -> AddDuck(1));
             DuckBornSystem.start();
@@ -166,7 +186,7 @@ public class Game {
     }
 
     public void LilySpawnSystem() {
-
+        /// Randomly spawn a new WaterLily
         if (Random.chance(LILY_SPAWN_CHANCE, 1000)) {
             Thread LilySpawnSystem = new Thread(() -> AddLily(1));
             LilySpawnSystem.start();
@@ -174,6 +194,7 @@ public class Game {
     }
 
     private void AddDuck(int nb) {
+        /// Add a new duck to the simulation (if the maximum number of ducks is not reached).
         if (MAX_NUMBEROFDUCKS == 0 || MAX_NUMBEROFDUCKS > NumberOfDucks)
             for (int i = 0; i < nb; i++) {
                 NumberOfDucks++;
@@ -189,6 +210,7 @@ public class Game {
     }
 
     private void AddLily(int nb) {
+        /// Add a new WaterLily to the simulation (if the maximum number of WaterLily is not reached).
         if (MAX_NUMBEROFLILY == 0 || MAX_NUMBEROFLILY > NumberOfLily) {
             for (int i = 0; i < nb; i++) {
                 NumberOfLily++;
@@ -198,6 +220,7 @@ public class Game {
     }
 
     private void AddRocks(int nb) {
+        /// Add a new Rock to the simulation
         for (int i = 0; i < nb; i++) {
             NumberOfRocks++;
             RocksArray.add(new Rocks());

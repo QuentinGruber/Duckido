@@ -65,7 +65,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        /// Call "$MaxFPS" per second
+        /// Called "$MaxFPS" per second
 
         // Calculate & display FPS
         fpsCounter.AddCalls();

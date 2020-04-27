@@ -42,9 +42,11 @@ public class Duck {
     private int Leadernb;
 
     public Duck() { // Constructor
+        /// Generate random PosX & PosY
+        /// Setup starting speed/weight/state of the duck
         PosX = (int) (Math.random() * ((750) + 1));
         PosY = (int) (Math.random() * ((550) + 1));
-        MoveSpeed = 1; // TODO: remove it DEBUG only
+        MoveSpeed = 1;
         Weight = 0.72; // Weight is in kg
         Critical_Weight = Weight / 1.2;
         State = 0;

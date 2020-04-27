@@ -25,6 +25,7 @@ public class GamePanel extends JPanel implements ActionListener {
     final Timer timer;
 
     public GamePanel(int width, int height) {
+        /// Create Simulation Panel
         setPreferredSize(new Dimension(width, height));
         setFocusable(true);
         requestFocus();

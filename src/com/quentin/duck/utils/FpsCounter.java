@@ -11,6 +11,7 @@ public class FpsCounter implements ActionListener {
     public int FpsLastSecond;
 
     public FpsCounter() {
+        /// Setup timer & initialize variable 
         Timer timer = new Timer(1000, this);
         timer.start();
         Calls = 0;

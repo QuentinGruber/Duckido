@@ -9,6 +9,7 @@ public class Rocks {
     public final int PosY;
 
     public Rocks() { // Constructor
+        /// Generate random PosX & PosY
         PosX = (int) (Math.random() * ((750) + 1));
         PosY = (int) (Math.random() * ((550) + 1));
     }

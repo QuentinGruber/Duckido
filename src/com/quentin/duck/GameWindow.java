@@ -10,6 +10,7 @@ public class GameWindow extends JFrame {
     final Image img = ImageIO.read(new File("assets/icon.png"));
 
     public GameWindow() throws IOException {
+        /// Create simulation windows
         setTitle("Duckido");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setContentPane(new GamePanel(800, 600));

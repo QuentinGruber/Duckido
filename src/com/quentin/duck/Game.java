@@ -45,8 +45,9 @@ public class Game {
     public int NumberOfRocks;
 
     public Game() {
+    
 
-        // create starting object
+        /// Create starting object
 
         if (START_NUMBEROFDUCKS > 0) {
             Thread Add_START_NUMBEROFDUCKS = new Thread(() -> AddDuck(START_NUMBEROFDUCKS));

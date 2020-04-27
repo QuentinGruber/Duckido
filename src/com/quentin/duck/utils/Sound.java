@@ -8,6 +8,7 @@ public class Sound {
 
 
     public static void playSound(String soundFile) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
+        /// Play the given soundfile
         File f = new File("./" + soundFile);
         AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
         Clip clip = AudioSystem.getClip();

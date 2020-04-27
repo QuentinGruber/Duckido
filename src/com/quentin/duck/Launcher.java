@@ -4,6 +4,7 @@ import java.io.IOException;
 
 public class Launcher {
     public Launcher() throws IOException {
+        /// Launch the simulation
         new GameWindow();
     }
 

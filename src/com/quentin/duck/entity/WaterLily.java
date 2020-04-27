@@ -3,8 +3,11 @@ package com.quentin.duck.entity;
 import java.awt.*;
 
 public class WaterLily {
+    /// WaterLily position on axis X
     public final int PosX;
+    /// WaterLily position on axis y
     public final int PosY;
+    /// Is WaterLily deleted?
     public boolean deleted;
 
     public WaterLily() { // Constructor
@@ -14,6 +17,7 @@ public class WaterLily {
     }
 
     public Rectangle bounds() {
+        /// return WaterLily "hitbox"
         return (new Rectangle(PosX, PosY, 20, 20));
     } // lower bounds to make the eating visual process better
 }

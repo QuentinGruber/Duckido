@@ -8,6 +8,7 @@ import java.io.IOException;
 
 public class Draw {
     public void background(Graphics g, JPanel GamePanel) {
+        /// Draw background (pond)
         try {
             Image bg = ImageIO.read(new File("assets/bg.png"));
             g.drawImage(bg, 0, 0, GamePanel);
@@ -17,6 +18,7 @@ public class Draw {
     }
 
     public void duck(Graphics g, JPanel GamePanel, int x, int y, int Duck_state, boolean lookingRight) {
+        /// Draw duck in function of his state
         try {
             Image duck = null;
             if (Duck_state == 0) {
@@ -54,6 +56,7 @@ public class Draw {
     }
 
     public void waterLily(Graphics g, JPanel GamePanel, int x, int y) {
+        /// Draw WaterLily
         try {
             Image waterlily = ImageIO.read(new File("assets/waterlily.png"));
             g.drawImage(waterlily, x, y, GamePanel);
@@ -63,6 +66,7 @@ public class Draw {
     }
 
     public void rock(Graphics g, JPanel GamePanel, int x, int y) {
+        /// Draw Rock
         try {
             Image rock = ImageIO.read(new File("assets/rock.png"));
             g.drawImage(rock, x, y, GamePanel);
